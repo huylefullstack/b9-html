@@ -180,138 +180,164 @@
         color: var(--text-on-dark);
       }
 
-      /* ── MODAL 1: Free Credit ── */
-      .modal-free-credit {
-        width: 380px;
-        padding: 36px 32px 28px;
-        text-align: center;
-      }
-
-      .mascot-wrap {
-        width: 96px;
-        height: 96px;
-        border-radius: 50%;
-        background: linear-gradient(
-          145deg,
-          var(--accent-text),
-          var(--btn-primary)
-        );
-        margin: 0 auto 20px;
+      /* ── MODAL 1: Free Credit — promo artboard layout ── */
+      .modal-free-credit--promo.casino-modal {
+        width: min(420px, calc(100vw - 48px));
+        padding: 0;
         overflow: hidden;
-        border: 3px solid rgba(255, 255, 255, 0.35);
-        box-shadow: 0 0 24px var(--btn-glow-soft);
-        display: flex;
-        align-items: center;
-        justify-content: center;
+        background: linear-gradient(
+          180deg,
+          #5ba3ff 0%,
+          #2b6ee8 18%,
+          #1e4eb8 42%,
+          #102a70 72%,
+          #08153d 100%
+        );
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        box-shadow:
+          0 28px 90px rgba(0, 0, 0, 0.55),
+          0 0 0 1px rgba(255, 255, 255, 0.08);
       }
-      .mascot-wrap img {
+
+      .modal-free-credit-hero {
+        position: relative;
         width: 100%;
-        height: 100%;
+        line-height: 0;
+      }
+
+      .modal-free-credit-artboard {
+        width: 100%;
+        height: auto;
+        display: block;
         object-fit: cover;
-      }
-      .mascot-placeholder {
-        font-size: 48px;
-        line-height: 1;
+        object-position: center top;
+        max-height: min(280px, 38vh);
       }
 
-      .modal-free-credit .badge-tag {
-        display: inline-block;
-        background: var(--accent-dim);
-        border: 1px solid var(--accent-border);
-        color: var(--accent-text);
-        font-size: 11px;
-        font-weight: 700;
-        letter-spacing: 1.5px;
-        text-transform: uppercase;
-        padding: 4px 12px;
-        border-radius: 20px;
-        margin-bottom: 10px;
-      }
-
-      .modal-free-credit h2 {
-        font-family: "Barlow Condensed", sans-serif;
-        font-size: 28px;
-        font-weight: 800;
-        color: var(--accent-text);
-        letter-spacing: 0.5px;
-        line-height: 1.1;
-        margin-bottom: 10px;
-        text-transform: uppercase;
-      }
-
-      .modal-free-credit p {
-        font-size: 14px;
-        color: var(--text-muted);
-        line-height: 1.6;
-        margin-bottom: 24px;
-      }
-
-      .modal-actions {
-        display: flex;
-        gap: 10px;
-        margin-bottom: 16px;
-      }
-
-      .btn-later {
-        flex: 1;
-        padding: 12px;
-        background: transparent;
-        border: 1px solid var(--border-navy);
-        color: var(--text-muted);
-        font-family: "Barlow", sans-serif;
-        font-size: 14px;
-        font-weight: 600;
-        border-radius: 10px;
-        cursor: pointer;
-        transition:
-          border-color 0.2s,
-          color 0.2s;
-      }
-      .btn-later:hover {
-        border-color: var(--b9-blue);
-        color: var(--text-on-dark);
-      }
-
-      .btn-verify-now {
-        flex: 2;
-        padding: 12px;
-        background: var(--btn-primary);
-        border: none;
+      .modal-close--promo {
+        top: 12px;
+        right: 12px;
+        background: rgba(8, 21, 61, 0.55);
+        border: 1px solid rgba(255, 255, 255, 0.25);
         color: #fff;
-        font-family: "Barlow", sans-serif;
-        font-size: 14px;
-        font-weight: 700;
-        border-radius: 10px;
-        cursor: pointer;
-        box-shadow: 0 4px 16px var(--btn-glow-soft);
-        transition:
-          background 0.2s,
-          transform 0.1s,
-          box-shadow 0.2s;
+        backdrop-filter: blur(6px);
+        -webkit-backdrop-filter: blur(6px);
       }
-      .btn-verify-now:hover {
-        background: var(--btn-primary-hover);
-        transform: translateY(-1px);
-        box-shadow: 0 6px 22px var(--btn-glow);
+      .modal-close--promo:hover {
+        background: rgba(8, 21, 61, 0.72);
+        color: #fff;
       }
-      .btn-verify-now:active {
-        transform: translateY(0);
+      .modal-close--promo:active {
+        background: rgba(8, 21, 61, 0.85);
       }
 
-      .checkbox-row {
+      .modal-free-credit-body {
+        text-align: center;
+        padding: 8px 28px 24px;
+      }
+
+      .modal-free-credit--promo h2 {
+        font-family: "Barlow Condensed", sans-serif;
+        font-size: clamp(28px, 3.2vw, 36px);
+        font-weight: 800;
+        text-transform: uppercase;
+        color: #fff;
+        letter-spacing: 0.04em;
+        line-height: 1.05;
+        margin: 0 0 10px;
+        -webkit-text-stroke: 1.5px #0a1f5c;
+        paint-order: stroke fill;
+        text-shadow:
+          0 2px 0 rgba(5, 18, 58, 0.85),
+          0 4px 14px rgba(0, 0, 0, 0.35);
+      }
+
+      .modal-free-credit--promo .modal-free-credit-sub {
+        font-size: 15px;
+        font-weight: 500;
+        color: rgba(255, 255, 255, 0.96);
+        line-height: 1.45;
+        margin: 0 auto 22px;
+        max-width: 340px;
+      }
+
+      .modal-free-credit--promo .modal-actions {
+        display: flex;
+        gap: 12px;
+        margin-bottom: 18px;
+      }
+
+      .modal-free-credit--promo .btn-later {
+        flex: 1;
+        padding: 14px 16px;
+        background: linear-gradient(180deg, #dbeafe 0%, #ffffff 100%);
+        border: 2px solid #0f2970;
+        color: #0f2970;
+        font-family: "Barlow", sans-serif;
+        font-size: 15px;
+        font-weight: 700;
+        border-radius: 999px;
+        cursor: pointer;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+        transition:
+          transform 0.12s,
+          box-shadow 0.2s,
+          opacity 0.2s;
+      }
+      .modal-free-credit--promo .btn-later:hover {
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.16);
+        transform: translateY(-1px);
+      }
+      .modal-free-credit--promo .btn-later:active {
+        transform: translateY(0) scale(0.98);
+        opacity: 0.94;
+      }
+
+      .modal-free-credit--promo .btn-verify-now {
+        flex: 1;
+        padding: 14px 16px;
+        background: linear-gradient(180deg, #ffe566 0%, #f5c02e 35%, #e89410 100%);
+        border: none;
+        color: #0a1736;
+        font-family: "Barlow", sans-serif;
+        font-size: 15px;
+        font-weight: 800;
+        border-radius: 999px;
+        cursor: pointer;
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.22);
+        transition:
+          transform 0.12s,
+          box-shadow 0.2s,
+          opacity 0.2s;
+      }
+      .modal-free-credit--promo .btn-verify-now:hover {
+        box-shadow: 0 5px 16px rgba(0, 0, 0, 0.28);
+        transform: translateY(-1px);
+      }
+      .modal-free-credit--promo .btn-verify-now:active {
+        transform: translateY(0) scale(0.98);
+        opacity: 0.94;
+      }
+
+      .modal-free-credit--promo .checkbox-row {
         display: flex;
         align-items: center;
         justify-content: center;
-        gap: 8px;
-        font-size: 12px;
-        color: var(--text-muted);
+        gap: 10px;
+        font-size: 13px;
+        font-weight: 500;
+        color: rgba(255, 255, 255, 0.95);
         cursor: pointer;
         user-select: none;
       }
-      .checkbox-row input[type="checkbox"] {
-        width: 14px;
-        height: 14px;
-        accent-color: var(--btn-primary);
+      .modal-free-credit--promo .checkbox-row input[type="checkbox"] {
+        width: 18px;
+        height: 18px;
+        flex-shrink: 0;
+        border-radius: 3px;
+        border: 2px solid rgba(255, 255, 255, 0.95);
+        background: rgba(255, 255, 255, 0.12);
+        accent-color: #f5c02e;
         cursor: pointer;
       }
 
@@ -1185,34 +1211,50 @@
       id="modal1"
       onclick="handleOverlayClick(event, 'modal1')"
     >
-      <div class="casino-modal modal-free-credit">
-        <button class="modal-close" onclick="closeModal('modal1')">
-          &#x2715;
-        </button>
-        <div class="mascot-wrap">
-          <span class="mascot-placeholder">🎭</span>
-        </div>
-        <div class="badge-tag">🎉 Limited Offer</div>
-        <h2>MYR 10 Free Credit</h2>
-        <p>Verify your contact number &amp; email to get free credit!</p>
-        <div class="modal-actions">
-          <button class="btn-later" onclick="closeModal('modal1')">
-            Later
-          </button>
+      <div class="casino-modal modal-free-credit modal-free-credit--promo">
+        <div class="modal-free-credit-hero">
+          <img
+            class="modal-free-credit-artboard"
+            src="images/artboard.png"
+            alt=""
+            width="750"
+            height="400"
+            decoding="async"
+          />
           <button
-            class="btn-verify-now"
-            onclick="
-              closeModal('modal1');
-              openModal('modal2');
-            "
+            type="button"
+            class="modal-close modal-close--promo"
+            onclick="closeModal('modal1')"
+            aria-label="Close"
           >
-            Verify Now
+            &#x2715;
           </button>
         </div>
-        <label class="checkbox-row">
-          <input type="checkbox" id="dontShow1" />
-          Don't show this again.
-        </label>
+        <div class="modal-free-credit-body">
+          <h2>MYR 10 FREE CREDIT</h2>
+          <p class="modal-free-credit-sub">
+            Verify your contact number &amp; email to get free credit!
+          </p>
+          <div class="modal-actions">
+            <button type="button" class="btn-later" onclick="closeModal('modal1')">
+              Later
+            </button>
+            <button
+              type="button"
+              class="btn-verify-now"
+              onclick="
+                closeModal('modal1');
+                openModal('modal2');
+              "
+            >
+              Verify Now
+            </button>
+          </div>
+          <label class="checkbox-row">
+            <input type="checkbox" id="dontShow1" />
+            Don't show this again.
+          </label>
+        </div>
       </div>
     </div>
 
