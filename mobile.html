@@ -480,19 +480,6 @@
     margin-bottom: 14px;
     text-align: center;
   }
-  .verify4m-progress-wrap {
-    height: 3px;
-    background: var(--border-navy);
-    border-radius: 2px;
-    margin-bottom: 14px;
-    overflow: hidden;
-  }
-  .verify4m-progress-fill {
-    height: 100%;
-    background: linear-gradient(90deg, var(--gold), var(--gold-light));
-    transition: width .35s ease;
-  }
-
   .verify4m-field-group { margin-bottom: 12px; }
   .verify4m-label {
     display: block;
@@ -971,7 +958,6 @@
       <div class="verify4m-stepbar" id="verify4mStepbar"></div>
       <div class="verify4m-scroll">
         <div class="verify4m-panel active" id="verify4m-panel-1">
-          <div class="verify4m-progress-wrap"><div class="verify4m-progress-fill" id="verify4mProgress" style="width:25%"></div></div>
           <div class="verify4m-phone-screen verify4m-phone-screen--method active" id="verify4mPhoneScreenMethod">
             <div class="verify4m-title">Contact Number Verification</div>
             <div class="verify4m-sub">Please select your preferred method to receive the OTP which will be sent to:</div>
@@ -1025,7 +1011,6 @@
         </div>
 
         <div class="verify4m-panel" id="verify4m-panel-2">
-          <div class="verify4m-progress-wrap"><div class="verify4m-progress-fill" style="width:50%"></div></div>
           <div class="verify4m-email-screen verify4m-email-screen--intro active" id="verify4mEmailScreenIntro">
             <div class="verify4m-title">Email Verification</div>
             <div class="verify4m-sub">The OTP will send to:</div>
@@ -1083,7 +1068,6 @@
         </div>
 
         <div class="verify4m-panel" id="verify4m-panel-3">
-          <div class="verify4m-progress-wrap"><div class="verify4m-progress-fill" style="width:75%"></div></div>
           <div class="verify4m-title">Game Preference</div>
           <div class="verify4m-field-group verify4m-game-pref-field">
             <div class="verify4m-field-wrap">
@@ -1104,7 +1088,6 @@
         </div>
 
         <div class="verify4m-panel" id="verify4m-panel-4">
-          <div class="verify4m-progress-wrap"><div class="verify4m-progress-fill" style="width:100%"></div></div>
           <div class="verify4m-title">Date of Birth</div>
           <div class="verify4m-dob-wrap" id="verify4mDobWrap">
             <div class="verify4m-dob-field" id="verify4mDobField">
@@ -1189,14 +1172,6 @@
       }
     });
     el.innerHTML = html;
-  }
-
-  function verify4mUpdateProgress() {
-    const step = Math.min(verify4mStep, 4);
-    const pct = (step / 4) * 100;
-    document.querySelectorAll('.verify4m-progress-fill').forEach(function (el) {
-      el.style.width = pct + '%';
-    });
   }
 
   function verify4mDobUpdateDisplay() {
@@ -1430,7 +1405,6 @@
     if (gp) gp.value = '';
     verify4mResetDob();
     verify4mRenderSteps();
-    verify4mUpdateProgress();
   }
 
   function verify4mTryGoStep(n) {
@@ -1464,14 +1438,10 @@
     verify4mStep = n;
     if (n > 4) {
       verify4mShowFinalSuccess();
-      document.querySelectorAll('.verify4m-progress-fill').forEach(function (el) {
-        el.style.width = '100%';
-      });
     } else {
       document.getElementById('verify4m-panel-' + n).classList.add('active');
       if (n === 1) verify4mResetPhoneScreens();
       if (n === 2) verify4mResetEmailScreens();
-      verify4mUpdateProgress();
     }
     verify4mRenderSteps();
   }
@@ -1493,7 +1463,6 @@
     btn.textContent = 'OK';
     btn.onclick = function () { verify4mGoStep(nextPanelStep); };
     document.getElementById('verify4m-success').classList.add('active');
-    verify4mUpdateProgress();
     verify4mRenderSteps();
   }
 
@@ -1692,7 +1661,6 @@
     verify4mResetDob();
     verify4mUpdateEmailMaskedDisplay();
     verify4mRenderSteps();
-    verify4mUpdateProgress();
     openModal('modal1');
   });
 </script>
