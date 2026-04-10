@@ -135,110 +135,141 @@
   }
   .modal-close:active { background: rgba(255,255,255,0.18); }
 
-  /* ── MODAL 1: Free Credit (Mobile) ── */
-  .modal-free-credit {
-    padding: 0 20px 0;
-    text-align: center;
-  }
-
-  .mascot-wrap {
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    background: linear-gradient(145deg, #F5C842, #E8970F);
-    margin: 16px auto 16px;
+  /* ── MODAL 1: Free Credit (Mobile) — promo artboard layout ── */
+  .modal-free-credit--promo.casino-modal {
+    padding: 0;
     overflow: hidden;
-    border: 3px solid var(--gold);
-    box-shadow: 0 0 16px rgba(245,166,35,0.4);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .mascot-placeholder { font-size: 40px; line-height: 1; }
-
-  .badge-tag {
-    display: inline-block;
-    background: rgba(245,166,35,0.12);
-    border: 1px solid rgba(245,166,35,0.3);
-    color: var(--gold);
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    padding: 3px 10px;
-    border-radius: 20px;
-    margin-bottom: 8px;
+    background: linear-gradient(180deg, #5BA3FF 0%, #2B6EE8 18%, #1E4EB8 42%, #102A70 72%, #08153D 100%);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    box-shadow: 0 -8px 40px rgba(0, 0, 0, 0.45);
   }
 
-  .modal-free-credit h2 {
+  .modal-free-credit--promo .pull-handle {
+    background: rgba(255, 255, 255, 0.35);
+    margin-top: 10px;
+    margin-bottom: 0;
+  }
+
+  .modal-free-credit-hero {
+    position: relative;
+    width: 100%;
+    line-height: 0;
+  }
+
+  .modal-free-credit-artboard {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+    object-position: center top;
+    max-height: min(260px, 46vh);
+  }
+
+  .modal-close--promo {
+    top: 12px;
+    right: 12px;
+    background: rgba(8, 21, 61, 0.55);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    color: #fff;
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+  }
+  .modal-close--promo:active { background: rgba(8, 21, 61, 0.75); }
+
+  .modal-free-credit-body {
+    text-align: center;
+    padding: 4px 20px calc(16px + var(--safe-bottom));
+  }
+
+  .modal-free-credit--promo h2 {
     font-family: 'Barlow Condensed', sans-serif;
-    font-size: 26px;
+    font-size: clamp(26px, 7.2vw, 34px);
     font-weight: 800;
-    color: var(--gold);
-    letter-spacing: 0.5px;
-    line-height: 1.1;
-    margin-bottom: 8px;
     text-transform: uppercase;
+    color: #fff;
+    letter-spacing: 0.04em;
+    line-height: 1.05;
+    margin: 0 0 10px;
+    -webkit-text-stroke: 1.5px #0a1f5c;
+    paint-order: stroke fill;
+    text-shadow:
+      0 2px 0 rgba(5, 18, 58, 0.85),
+      0 4px 14px rgba(0, 0, 0, 0.35);
   }
 
-  .modal-free-credit p {
-    font-size: 13px;
-    color: var(--text-muted);
-    line-height: 1.6;
-    margin-bottom: 20px;
+  .modal-free-credit--promo .modal-free-credit-sub {
+    font-size: 15px;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.96);
+    line-height: 1.45;
+    margin: 0 auto 20px;
+    max-width: 320px;
   }
 
   .modal-actions {
     display: flex;
-    gap: 10px;
-    margin-bottom: 14px;
+    gap: 12px;
+    margin-bottom: 16px;
   }
 
-  .btn-later {
+  .modal-free-credit--promo .btn-later {
     flex: 1;
-    padding: 13px;
-    background: transparent;
-    border: 1px solid var(--border-navy);
-    color: var(--text-muted);
+    padding: 14px 16px;
+    background: linear-gradient(180deg, #dbeafe 0%, #ffffff 100%);
+    border: 2px solid #0f2970;
+    color: #0f2970;
     font-family: 'Barlow', sans-serif;
-    font-size: 14px;
-    font-weight: 600;
-    border-radius: 12px;
-    cursor: pointer;
-    touch-action: manipulation;
-  }
-  .btn-later:active { background: rgba(255,255,255,0.05); }
-
-  .btn-verify-now {
-    flex: 2;
-    padding: 13px;
-    background: var(--gold);
-    border: none;
-    color: #1A0D00;
-    font-family: 'Barlow', sans-serif;
-    font-size: 14px;
+    font-size: 15px;
     font-weight: 700;
-    border-radius: 12px;
+    border-radius: 999px;
     cursor: pointer;
     touch-action: manipulation;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
   }
-  .btn-verify-now:active { opacity: 0.85; transform: scale(0.98); }
+  .modal-free-credit--promo .btn-later:active {
+    transform: scale(0.98);
+    opacity: 0.92;
+  }
 
-  .checkbox-row {
+  .modal-free-credit--promo .btn-verify-now {
+    flex: 1;
+    padding: 14px 16px;
+    background: linear-gradient(180deg, #ffe566 0%, #f5c02e 35%, #e89410 100%);
+    border: none;
+    color: #0a1736;
+    font-family: 'Barlow', sans-serif;
+    font-size: 15px;
+    font-weight: 800;
+    border-radius: 999px;
+    cursor: pointer;
+    touch-action: manipulation;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.22);
+  }
+  .modal-free-credit--promo .btn-verify-now:active {
+    opacity: 0.92;
+    transform: scale(0.98);
+  }
+
+  .modal-free-credit--promo .checkbox-row {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 8px;
-    font-size: 12px;
-    color: var(--text-muted);
+    gap: 10px;
+    font-size: 13px;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.95);
     cursor: pointer;
     user-select: none;
-    margin-bottom: 12px;
+    margin-bottom: 4px;
   }
-  .checkbox-row input[type="checkbox"] {
-    width: 16px;
-    height: 16px;
-    accent-color: var(--gold);
+  .modal-free-credit--promo .checkbox-row input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+    border-radius: 3px;
+    border: 2px solid rgba(255, 255, 255, 0.95);
+    background: rgba(255, 255, 255, 0.12);
+    accent-color: #f5c02e;
     cursor: pointer;
   }
 
@@ -775,23 +806,24 @@
 
 <!-- MODAL 1: Free Credit (Mobile - bottom sheet) -->
 <div class="modal-overlay" id="modal1" onclick="handleOverlayClick(event,'modal1')">
-  <div class="casino-modal modal-free-credit" id="sheet1">
+  <div class="casino-modal modal-free-credit modal-free-credit--promo" id="sheet1">
     <div class="pull-handle"></div>
-    <button class="modal-close" onclick="closeModal('modal1')">&#x2715;</button>
-    <div class="mascot-wrap">
-      <span class="mascot-placeholder">🎭</span>
+    <div class="modal-free-credit-hero">
+      <img class="modal-free-credit-artboard" src="images/artboard.png" alt="" width="750" height="400" decoding="async">
+      <button type="button" class="modal-close modal-close--promo" onclick="closeModal('modal1')" aria-label="Close">&#x2715;</button>
     </div>
-    <div class="badge-tag">🎉 Limited Offer</div>
-    <h2>MYR 10 Free Credit</h2>
-    <p>Verify your contact number &amp; email to get free credit!</p>
-    <div class="modal-actions">
-      <button class="btn-later" onclick="closeModal('modal1')">Later</button>
-      <button class="btn-verify-now" onclick="closeModal('modal1'); openModal('modal2')">Verify Now</button>
+    <div class="modal-free-credit-body">
+      <h2>MYR 10 FREE CREDIT</h2>
+      <p class="modal-free-credit-sub">Verify your contact number &amp; email to get free credit!</p>
+      <div class="modal-actions">
+        <button type="button" class="btn-later" onclick="closeModal('modal1')">Later</button>
+        <button type="button" class="btn-verify-now" onclick="closeModal('modal1'); openModal('modal2')">Verify Now</button>
+      </div>
+      <label class="checkbox-row">
+        <input type="checkbox">
+        Don't show this again.
+      </label>
     </div>
-    <label class="checkbox-row">
-      <input type="checkbox">
-      Don't show this again.
-    </label>
   </div>
 </div>
 
