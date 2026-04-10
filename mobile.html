@@ -1,0 +1,955 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Casino Modals - Mobile</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700;800&family=Barlow+Condensed:wght@700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #F5A623;
+    --gold-dark: #D4891A;
+    --gold-light: #FFD080;
+    --gold-dim: rgba(245,166,35,0.15);
+    --navy: #0D1B3E;
+    --navy-mid: #142250;
+    --navy-light: #1C2F6B;
+    --navy-card: #162044;
+    --navy-input: #0C1633;
+    --navy-side: #0A1429;
+    --navy-overlay: rgba(6, 10, 30, 0.92);
+    --text-on-dark: #E8EEFF;
+    --text-muted: #8A99C8;
+    --green: #22C55E;
+    --green-dim: rgba(34,197,94,0.15);
+    --red: #EF4444;
+    --border-navy: #2A3E7A;
+    --radius: 20px;
+    --safe-bottom: env(safe-area-inset-bottom, 0px);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Barlow', sans-serif;
+    background: linear-gradient(160deg, #060A1E 0%, #0D1B3E 100%);
+    color: var(--text-on-dark);
+    min-height: 100vh;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* Demo page */
+  .demo-bg {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    padding: 24px;
+  }
+
+  .demo-title {
+    font-size: 13px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+
+  .btn-demo {
+    width: 100%;
+    max-width: 280px;
+    background: var(--gold);
+    color: #1A0D00;
+    font-family: 'Barlow', sans-serif;
+    font-weight: 700;
+    font-size: 15px;
+    border: none;
+    padding: 15px 20px;
+    border-radius: 12px;
+    cursor: pointer;
+    letter-spacing: 0.3px;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+  }
+  .btn-demo:active { opacity: 0.85; transform: scale(0.98); }
+
+  /* Overlay — BOTTOM SHEET style on mobile */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: var(--navy-overlay);
+    z-index: 1000;
+    align-items: flex-end;
+    justify-content: center;
+  }
+  .modal-overlay.active { display: flex; }
+
+  /* Bottom sheet */
+  .casino-modal {
+    background: var(--navy-card);
+    border: 1px solid var(--border-navy);
+    border-radius: var(--radius) var(--radius) 0 0;
+    position: relative;
+    width: 100%;
+    max-width: 480px;
+    animation: slideUp 0.3s cubic-bezier(0.32, 0.72, 0, 1);
+    padding-bottom: calc(20px + var(--safe-bottom));
+  }
+  @keyframes slideUp {
+    from { transform: translateY(100%); }
+    to   { transform: translateY(0); }
+  }
+
+  /* Pull handle */
+  .pull-handle {
+    width: 40px;
+    height: 4px;
+    background: rgba(255,255,255,0.15);
+    border-radius: 2px;
+    margin: 12px auto 0;
+  }
+
+  /* Close button */
+  .modal-close {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    width: 30px;
+    height: 30px;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #8A99C8;
+    font-size: 15px;
+    line-height: 1;
+    z-index: 2;
+  }
+  .modal-close:active { background: rgba(255,255,255,0.18); }
+
+  /* ── MODAL 1: Free Credit (Mobile) ── */
+  .modal-free-credit {
+    padding: 0 20px 0;
+    text-align: center;
+  }
+
+  .mascot-wrap {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: linear-gradient(145deg, #F5C842, #E8970F);
+    margin: 16px auto 16px;
+    overflow: hidden;
+    border: 3px solid var(--gold);
+    box-shadow: 0 0 16px rgba(245,166,35,0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .mascot-placeholder { font-size: 40px; line-height: 1; }
+
+  .badge-tag {
+    display: inline-block;
+    background: rgba(245,166,35,0.12);
+    border: 1px solid rgba(245,166,35,0.3);
+    color: var(--gold);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 3px 10px;
+    border-radius: 20px;
+    margin-bottom: 8px;
+  }
+
+  .modal-free-credit h2 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 26px;
+    font-weight: 800;
+    color: var(--gold);
+    letter-spacing: 0.5px;
+    line-height: 1.1;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+  }
+
+  .modal-free-credit p {
+    font-size: 13px;
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin-bottom: 20px;
+  }
+
+  .modal-actions {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 14px;
+  }
+
+  .btn-later {
+    flex: 1;
+    padding: 13px;
+    background: transparent;
+    border: 1px solid var(--border-navy);
+    color: var(--text-muted);
+    font-family: 'Barlow', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    border-radius: 12px;
+    cursor: pointer;
+    touch-action: manipulation;
+  }
+  .btn-later:active { background: rgba(255,255,255,0.05); }
+
+  .btn-verify-now {
+    flex: 2;
+    padding: 13px;
+    background: var(--gold);
+    border: none;
+    color: #1A0D00;
+    font-family: 'Barlow', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    border-radius: 12px;
+    cursor: pointer;
+    touch-action: manipulation;
+  }
+  .btn-verify-now:active { opacity: 0.85; transform: scale(0.98); }
+
+  .checkbox-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-size: 12px;
+    color: var(--text-muted);
+    cursor: pointer;
+    user-select: none;
+    margin-bottom: 12px;
+  }
+  .checkbox-row input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    accent-color: var(--gold);
+    cursor: pointer;
+  }
+
+  .info-note {
+    font-size: 11px;
+    color: var(--text-muted);
+    text-align: center;
+    padding: 10px;
+    background: rgba(255,255,255,0.03);
+    border-radius: 8px;
+    border: 1px solid rgba(255,255,255,0.05);
+    margin-bottom: 4px;
+  }
+
+  /* ── MODAL 2: Contact Verification (4-step mobile) ── */
+  .modal-verify-4step {
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    max-height: min(88vh, 760px);
+  }
+  .verify4m-content {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+  }
+  .verify4m-scroll {
+    overflow-y: auto;
+    padding: 0 16px 0;
+  }
+  .verify4m-stepbar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    padding: 12px 12px 8px;
+    border-bottom: 1px solid var(--border-navy);
+    overflow-x: auto;
+  }
+  .verify4m-step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+    min-width: 58px;
+    flex-shrink: 0;
+    cursor: pointer;
+  }
+  .verify4m-connector {
+    width: 18px;
+    height: 2px;
+    background: var(--border-navy);
+    margin-top: -15px;
+    flex-shrink: 0;
+  }
+  .verify4m-connector.done { background: var(--green); }
+  .verify4m-step-dot {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid var(--border-navy);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-muted);
+    position: relative;
+  }
+  .verify4m-step-dot svg { width: 16px; height: 16px; }
+  .verify4m-step.active .verify4m-step-dot {
+    border-color: var(--gold);
+    background: var(--gold-dim);
+    color: var(--gold);
+  }
+  .verify4m-step.done .verify4m-step-dot {
+    border-color: var(--green);
+    background: var(--green-dim);
+    color: var(--green);
+  }
+  .verify4m-step-label {
+    font-size: 10.5px;
+    font-weight: 600;
+    color: var(--text-muted);
+  }
+  .verify4m-step.active .verify4m-step-label { color: var(--gold); }
+  .verify4m-step.done .verify4m-step-label { color: var(--green); }
+
+  .verify4m-panel {
+    display: none;
+    flex-direction: column;
+    padding: 16px 0 16px;
+    min-height: 0;
+  }
+  .verify4m-panel.active { display: flex; }
+  .verify4m-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 20px;
+    font-weight: 800;
+    color: var(--gold);
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+  .verify4m-sub {
+    font-size: 12px;
+    color: var(--text-muted);
+    line-height: 1.55;
+    margin-bottom: 14px;
+  }
+  .verify4m-phone-display {
+    font-size: 19px;
+    font-weight: 700;
+    color: var(--text-on-dark);
+    letter-spacing: 1px;
+    margin-bottom: 14px;
+    text-align: center;
+  }
+  .verify4m-progress-wrap {
+    height: 3px;
+    background: var(--border-navy);
+    border-radius: 2px;
+    margin-bottom: 14px;
+    overflow: hidden;
+  }
+  .verify4m-progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--gold), var(--gold-light));
+    transition: width .35s ease;
+  }
+
+  .verify4m-field-group { margin-bottom: 12px; }
+  .verify4m-label {
+    display: block;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 6px;
+  }
+  .verify4m-field-wrap { position: relative; }
+  .verify4m-icon {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-muted);
+    width: 16px;
+    height: 16px;
+    pointer-events: none;
+  }
+  .verify4m-input, .verify4m-select {
+    width: 100%;
+    height: 46px;
+    background: var(--navy-input);
+    border: 1px solid var(--border-navy);
+    border-radius: 10px;
+    color: var(--text-on-dark);
+    font-family: 'Barlow', sans-serif;
+    font-size: 15px;
+    padding: 0 12px;
+    outline: none;
+    appearance: none;
+  }
+  .verify4m-input.has-icon { padding-left: 36px; }
+  .verify4m-input:focus, .verify4m-select:focus {
+    border-color: var(--gold);
+    box-shadow: 0 0 0 3px rgba(245,166,35,0.1);
+  }
+  .verify4m-input.error { border-color: var(--red); }
+  .verify4m-input.valid { border-color: var(--green); }
+  .verify4m-phone-row { display: flex; gap: 8px; }
+  .verify4m-prefix { width: 84px; flex-shrink: 0; }
+  .verify4m-select { padding-right: 30px; }
+  .verify4m-arrow {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    color: var(--text-muted);
+  }
+  .verify4m-arrow svg { width: 14px; height: 14px; }
+
+  .verify4m-otp-row { display: flex; gap: 8px; margin-bottom: 12px; }
+  .verify4m-otp-choice {
+    flex: 1;
+    border: 1.5px solid var(--border-navy);
+    border-radius: 12px;
+    background: rgba(255,255,255,0.03);
+    padding: 13px 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+  }
+  .verify4m-otp-choice.selected { border-color: var(--gold); background: var(--gold-dim); }
+  .verify4m-otp-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .verify4m-otp-icon.wa { background: #25D366; }
+  .verify4m-otp-icon.sms { background: var(--navy-light); border: 1px solid var(--border-navy); }
+  .verify4m-otp-icon svg { width: 23px; height: 23px; }
+  .verify4m-otp-label { font-size: 12.5px; font-weight: 600; color: var(--text-muted); }
+  .verify4m-otp-choice.selected .verify4m-otp-label { color: var(--gold); }
+  .verify4m-or { display: flex; align-items: center; font-size: 12px; color: var(--text-muted); }
+
+  .verify4m-otp-boxes { display: flex; gap: 6px; margin-bottom: 8px; }
+  .verify4m-otp-box {
+    width: 46px;
+    height: 52px;
+    border-radius: 10px;
+    border: 1px solid var(--border-navy);
+    background: var(--navy-input);
+    text-align: center;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--text-on-dark);
+    outline: none;
+  }
+  .verify4m-otp-box:focus { border-color: var(--gold); box-shadow: 0 0 0 3px rgba(245,166,35,0.12); }
+  .verify4m-resend {
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-bottom: 10px;
+  }
+  .verify4m-resend a { color: var(--gold); text-decoration: none; font-weight: 600; }
+  .verify4m-count { color: var(--text-on-dark); font-weight: 700; }
+
+  .verify4m-field-err {
+    font-size: 11px;
+    color: var(--red);
+    margin-top: 4px;
+    display: none;
+  }
+  .verify4m-field-err.show { display: block; }
+
+  .verify4m-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; }
+  .verify4m-chip {
+    padding: 9px 14px;
+    border-radius: 20px;
+    border: 1px solid var(--border-navy);
+    background: rgba(255,255,255,0.04);
+    color: var(--text-muted);
+    font-size: 13.5px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  .verify4m-chip.selected { border-color: var(--gold); background: var(--gold-dim); color: var(--gold); }
+  .verify4m-date-row { display: flex; gap: 8px; }
+  .verify4m-date-row .verify4m-field-group { flex: 1; }
+
+  .verify4m-actions {
+    display: flex;
+    gap: 8px;
+    margin-top: auto;
+    padding-top: 10px;
+    position: sticky;
+    bottom: 0;
+    background: linear-gradient(180deg, rgba(22,32,68,0) 0%, rgba(22,32,68,0.95) 25%, rgba(22,32,68,1) 100%);
+    padding-bottom: 4px;
+  }
+  .verify4m-btn-back,
+  .verify4m-btn-next {
+    height: 42px;
+    border-radius: 10px;
+    font-family: 'Barlow', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+  }
+  .verify4m-btn-back {
+    min-width: 122px;
+    background: transparent;
+    border: 1px solid var(--border-navy);
+    color: var(--text-muted);
+  }
+  .verify4m-btn-next {
+    flex: 1;
+    background: var(--gold);
+    border: none;
+    color: #1A0D00;
+  }
+  .verify4m-help {
+    font-size: 11px;
+    color: var(--text-muted);
+    text-align: center;
+    margin-top: 8px;
+  }
+  .verify4m-help a { color: var(--gold); text-decoration: none; font-weight: 600; }
+  .verify4m-success {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 20px 8px 12px;
+  }
+  .verify4m-success.active { display: flex; }
+  .verify4m-success-ring {
+    width: 68px;
+    height: 68px;
+    border-radius: 50%;
+    border: 2px solid var(--green);
+    background: var(--green-dim);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 12px;
+  }
+  .verify4m-success-ring svg { width: 30px; height: 30px; color: var(--green); }
+  .verify4m-success-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 24px;
+    color: var(--text-on-dark);
+    margin-bottom: 6px;
+    text-transform: uppercase;
+  }
+  .verify4m-success-msg {
+    font-size: 12px;
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin-bottom: 12px;
+  }
+</style>
+</head>
+<body>
+
+<div class="demo-bg">
+  <p class="demo-title">📱 Mobile Preview</p>
+  <button class="btn-demo" onclick="openModal('modal1')">🎁 Free Credit Modal</button>
+  <button class="btn-demo" onclick="openModal('modal2')">📱 Contact Verification Modal</button>
+</div>
+
+<!-- MODAL 1: Free Credit (Mobile - bottom sheet) -->
+<div class="modal-overlay" id="modal1" onclick="handleOverlayClick(event,'modal1')">
+  <div class="casino-modal modal-free-credit" id="sheet1">
+    <div class="pull-handle"></div>
+    <button class="modal-close" onclick="closeModal('modal1')">&#x2715;</button>
+    <div class="mascot-wrap">
+      <span class="mascot-placeholder">🎭</span>
+    </div>
+    <div class="badge-tag">🎉 Limited Offer</div>
+    <h2>MYR 10 Free Credit</h2>
+    <p>Verify your contact number &amp; email to get free credit!</p>
+    <div class="modal-actions">
+      <button class="btn-later" onclick="closeModal('modal1')">Later</button>
+      <button class="btn-verify-now" onclick="closeModal('modal1'); openModal('modal2')">Verify Now</button>
+    </div>
+    <label class="checkbox-row">
+      <input type="checkbox">
+      Don't show this again.
+    </label>
+  </div>
+</div>
+
+<!-- MODAL 2: Contact Verification (Mobile - bottom sheet) -->
+<div class="modal-overlay" id="modal2" onclick="handleOverlayClick(event,'modal2')">
+  <div class="casino-modal modal-verify-4step" id="sheet2">
+    <div class="pull-handle"></div>
+    <button class="modal-close" onclick="closeModal('modal2')">&#x2715;</button>
+    <div class="verify4m-content">
+      <div class="verify4m-stepbar" id="verify4mStepbar"></div>
+      <div class="verify4m-scroll">
+        <div class="verify4m-panel active" id="verify4m-panel-1">
+          <div class="verify4m-progress-wrap"><div class="verify4m-progress-fill" id="verify4mProgress" style="width:25%"></div></div>
+          <div class="verify4m-title">Contact Number Verification</div>
+          <div class="verify4m-sub" style="text-align:center;margin-bottom:6px;">Please select your preferred method to receive the OTP which will send to:</div>
+          <div class="verify4m-phone-display">60***703757</div>
+          <div class="verify4m-field-group">
+            <div class="verify4m-otp-row">
+              <div class="verify4m-otp-choice selected" id="verify4mChoiceWA" onclick="verify4mSelectOTP('wa')">
+                <div class="verify4m-otp-icon wa">
+                  <svg viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347"/></svg>
+                </div>
+                <span class="verify4m-otp-label">WhatsApp</span>
+              </div>
+              <div class="verify4m-or">or</div>
+              <div class="verify4m-otp-choice" id="verify4mChoiceSMS" onclick="verify4mSelectOTP('sms')">
+                <div class="verify4m-otp-icon sms">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="#8A99C8" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+                </div>
+                <span class="verify4m-otp-label">SMS</span>
+              </div>
+            </div>
+          </div>
+          <div id="verify4mOtpInputSection" style="display:none">
+            <div class="verify4m-field-group">
+              <label class="verify4m-label">Enter OTP Code</label>
+              <div class="verify4m-otp-boxes">
+                <input class="verify4m-otp-box" maxlength="1" id="verify4motp0" inputmode="numeric">
+                <input class="verify4m-otp-box" maxlength="1" id="verify4motp1" inputmode="numeric">
+                <input class="verify4m-otp-box" maxlength="1" id="verify4motp2" inputmode="numeric">
+                <input class="verify4m-otp-box" maxlength="1" id="verify4motp3" inputmode="numeric">
+                <input class="verify4m-otp-box" maxlength="1" id="verify4motp4" inputmode="numeric">
+                <input class="verify4m-otp-box" maxlength="1" id="verify4motp5" inputmode="numeric">
+              </div>
+              <div class="verify4m-resend">Didn't receive? <a href="#" onclick="verify4mStartCountdown(event)">Resend OTP</a> <span class="verify4m-count" id="verify4mcountdown"></span></div>
+            </div>
+          </div>
+          <div class="verify4m-actions">
+            <button class="verify4m-btn-back" onclick="closeModal('modal2')">Change Number</button>
+            <button class="verify4m-btn-next" id="verify4mBtnPhone" onclick="verify4mProceedFromPhone()">Verify Now</button>
+          </div>
+          <div class="verify4m-help">Need help? <a href="#">Live Chat</a></div>
+        </div>
+
+        <div class="verify4m-panel" id="verify4m-panel-2">
+          <div class="verify4m-progress-wrap"><div class="verify4m-progress-fill" style="width:50%"></div></div>
+          <div class="verify4m-title">Email Verification</div>
+          <div class="verify4m-sub">Enter your email address. A verification link will be sent.</div>
+          <div class="verify4m-field-group">
+            <label class="verify4m-label">Email Address</label>
+            <div class="verify4m-field-wrap">
+              <svg class="verify4m-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              <input class="verify4m-input has-icon" type="email" id="verify4mEmailInput" placeholder="you@example.com">
+            </div>
+            <div class="verify4m-field-err" id="verify4mEmailErr">Please enter a valid email address.</div>
+          </div>
+          <div id="verify4mEmailOtpSection" style="display:none">
+            <div class="verify4m-field-group">
+              <label class="verify4m-label">Verification Code</label>
+              <div class="verify4m-otp-boxes">
+                <input class="verify4m-otp-box" maxlength="1" id="verify4meotp0" inputmode="numeric">
+                <input class="verify4m-otp-box" maxlength="1" id="verify4meotp1" inputmode="numeric">
+                <input class="verify4m-otp-box" maxlength="1" id="verify4meotp2" inputmode="numeric">
+                <input class="verify4m-otp-box" maxlength="1" id="verify4meotp3" inputmode="numeric">
+                <input class="verify4m-otp-box" maxlength="1" id="verify4meotp4" inputmode="numeric">
+                <input class="verify4m-otp-box" maxlength="1" id="verify4meotp5" inputmode="numeric">
+              </div>
+              <div class="verify4m-resend">Didn't receive? <a href="#" onclick="verify4mStartECountdown(event)">Resend email</a> <span class="verify4m-count" id="verify4mecountdown"></span></div>
+            </div>
+          </div>
+          <div class="verify4m-actions">
+            <button class="verify4m-btn-back" onclick="verify4mGoStep(1)">Back</button>
+            <button class="verify4m-btn-next" id="verify4mBtnEmail" onclick="verify4mHandleEmail()">Send Code</button>
+          </div>
+          <div class="verify4m-help">Need help? <a href="#">Live Chat</a></div>
+        </div>
+
+        <div class="verify4m-panel" id="verify4m-panel-3">
+          <div class="verify4m-progress-wrap"><div class="verify4m-progress-fill" style="width:75%"></div></div>
+          <div class="verify4m-title">Game Preference</div>
+          <div class="verify4m-sub">Select your favourite game types (optional).</div>
+          <div class="verify4m-field-group">
+            <label class="verify4m-label">Favourite Game Types</label>
+            <div class="verify4m-chips">
+              <div class="verify4m-chip" onclick="verify4mToggleChip(this)">Slots</div>
+              <div class="verify4m-chip" onclick="verify4mToggleChip(this)">Live Casino</div>
+              <div class="verify4m-chip" onclick="verify4mToggleChip(this)">Sports Betting</div>
+              <div class="verify4m-chip" onclick="verify4mToggleChip(this)">Poker</div>
+              <div class="verify4m-chip" onclick="verify4mToggleChip(this)">Fish Shooting</div>
+              <div class="verify4m-chip" onclick="verify4mToggleChip(this)">Table Games</div>
+            </div>
+          </div>
+          <div class="verify4m-field-group">
+            <label class="verify4m-label">Preferred Language</label>
+            <div class="verify4m-field-wrap">
+              <select class="verify4m-select">
+                <option value="">Select language</option><option>English</option><option>Bahasa Malaysia</option><option>Chinese</option><option>Thai</option><option>Vietnamese</option>
+              </select>
+              <span class="verify4m-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></span>
+            </div>
+          </div>
+          <div class="verify4m-actions">
+            <button class="verify4m-btn-back" onclick="verify4mGoStep(2)">Back</button>
+            <button class="verify4m-btn-next" onclick="verify4mGoStep(4)">Continue</button>
+          </div>
+          <div class="verify4m-help">Need help? <a href="#">Live Chat</a></div>
+        </div>
+
+        <div class="verify4m-panel" id="verify4m-panel-4">
+          <div class="verify4m-progress-wrap"><div class="verify4m-progress-fill" style="width:100%"></div></div>
+          <div class="verify4m-title">Date of Birth</div>
+          <div class="verify4m-sub">You must be 18+ to use this platform.</div>
+          <div class="verify4m-date-row">
+            <div class="verify4m-field-group">
+              <label class="verify4m-label">Day</label>
+              <div class="verify4m-field-wrap"><select class="verify4m-select" id="verify4mDobDay"><option value="">DD</option></select></div>
+            </div>
+            <div class="verify4m-field-group">
+              <label class="verify4m-label">Month</label>
+              <div class="verify4m-field-wrap">
+                <select class="verify4m-select" id="verify4mDobMonth"><option value="">MM</option><option>01</option><option>02</option><option>03</option><option>04</option><option>05</option><option>06</option><option>07</option><option>08</option><option>09</option><option>10</option><option>11</option><option>12</option></select>
+              </div>
+            </div>
+            <div class="verify4m-field-group">
+              <label class="verify4m-label">Year</label>
+              <div class="verify4m-field-wrap"><select class="verify4m-select" id="verify4mDobYear"><option value="">YYYY</option></select></div>
+            </div>
+          </div>
+          <div class="verify4m-field-err" id="verify4mDobErr">You must be at least 18 years old.</div>
+          <div class="verify4m-actions">
+            <button class="verify4m-btn-back" onclick="verify4mGoStep(3)">Back</button>
+            <button class="verify4m-btn-next" onclick="verify4mHandleDOB()">Complete</button>
+          </div>
+          <div class="verify4m-help">Need help? <a href="#">Live Chat</a></div>
+        </div>
+
+        <div class="verify4m-success" id="verify4m-success">
+          <div class="verify4m-success-ring"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></div>
+          <div class="verify4m-success-title">Verification Complete!</div>
+          <div class="verify4m-success-msg">Your account is fully verified.<br>MYR 10 free credit has been added to your wallet.</div>
+          <button class="verify4m-btn-next" style="max-width:220px" onclick="closeModal('modal2')">Start Playing</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function openModal(id) {
+    document.getElementById(id).classList.add('active');
+    if (id === 'modal2') verify4mReset();
+    document.body.style.overflow = 'hidden';
+  }
+  function closeModal(id) {
+    document.getElementById(id).classList.remove('active');
+    document.body.style.overflow = '';
+  }
+  function handleOverlayClick(e, id) {
+    if (e.target === document.getElementById(id)) closeModal(id);
+  }
+  const VERIFY4M_STEPS = [
+    { label: 'Phone', icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.86 8.81 19.79 19.79 0 01.78 2.2 2 2 0 012.76.02h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 8.54a16 16 0 006.37 6.37l1.9-1.9a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>` },
+    { label: 'Email', icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>` },
+    { label: 'Game', icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>` },
+    { label: 'Birth', icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>` }
+  ];
+  let verify4mStep = 1;
+  let verify4mPhonePrompted = false;
+  let verify4mEmailSent = false;
+  const verify4mTimers = {};
+
+  function verify4mRenderSteps() {
+    const el = document.getElementById('verify4mStepbar');
+    let html = '';
+    VERIFY4M_STEPS.forEach((s, i) => {
+      const n = i + 1;
+      const cls = n < verify4mStep ? 'done' : (n === verify4mStep ? 'active' : '');
+      html += `<div class="verify4m-step ${cls}" onclick="verify4mTryGoStep(${n})"><div class="verify4m-step-dot">${s.icon}</div><span class="verify4m-step-label">${s.label}</span></div>`;
+      if (i < VERIFY4M_STEPS.length - 1) html += `<div class="verify4m-connector ${n < verify4mStep ? 'done' : ''}"></div>`;
+    });
+    el.innerHTML = html;
+  }
+  function verify4mUpdateProgress() {
+    const pct = (verify4mStep / VERIFY4M_STEPS.length) * 100;
+    document.getElementById('verify4mProgress').style.width = pct + '%';
+  }
+  function verify4mGoStep(n) {
+    document.getElementById('verify4m-panel-' + verify4mStep)?.classList.remove('active');
+    document.getElementById('verify4m-success')?.classList.remove('active');
+    verify4mStep = n;
+    if (n > 4) {
+      document.getElementById('verify4m-success').classList.add('active');
+      document.getElementById('verify4mProgress').style.width = '100%';
+    } else {
+      document.getElementById('verify4m-panel-' + n).classList.add('active');
+      verify4mUpdateProgress();
+    }
+    verify4mRenderSteps();
+  }
+  function verify4mTryGoStep(n) {
+    if (n < verify4mStep) {
+      verify4mGoStep(n);
+      return;
+    }
+    if (n > verify4mStep && verify4mCanSkipCurrentStep()) verify4mGoStep(n);
+  }
+  function verify4mCanSkipCurrentStep() {
+    if (verify4mStep === 1) return !verify4mPhonePrompted;
+    if (verify4mStep === 2) {
+      const email = document.getElementById('verify4mEmailInput').value.trim();
+      const emailOtp = [0, 1, 2, 3, 4, 5].map(i => document.getElementById('verify4meotp' + i).value).join('');
+      return !email && emailOtp.length === 0 && !verify4mEmailSent;
+    }
+    if (verify4mStep === 3) {
+      const hasChip = Array.from(document.querySelectorAll('#verify4m-panel-3 .verify4m-chip')).some(el => el.classList.contains('selected'));
+      return !hasChip;
+    }
+    if (verify4mStep === 4) {
+      const d = document.getElementById('verify4mDobDay').value;
+      const m = document.getElementById('verify4mDobMonth').value;
+      const y = document.getElementById('verify4mDobYear').value;
+      return !d && !m && !y;
+    }
+    return false;
+  }
+  function verify4mReset() {
+    verify4mStep = 1;
+    verify4mPhonePrompted = false;
+    verify4mEmailSent = false;
+    document.querySelectorAll('.verify4m-panel').forEach((p, idx) => p.classList.toggle('active', idx === 0));
+    document.getElementById('verify4m-success').classList.remove('active');
+    document.getElementById('verify4mOtpInputSection').style.display = 'none';
+    document.getElementById('verify4mBtnPhone').textContent = 'Verify Now';
+    document.getElementById('verify4mEmailOtpSection').style.display = 'none';
+    document.getElementById('verify4mBtnEmail').textContent = 'Send Code';
+    verify4mRenderSteps();
+    verify4mUpdateProgress();
+  }
+  function verify4mSelectOTP(type) {
+    document.getElementById('verify4mChoiceWA').classList.toggle('selected', type === 'wa');
+    document.getElementById('verify4mChoiceSMS').classList.toggle('selected', type === 'sms');
+  }
+  function verify4mInitOTP(ids) {
+    ids.forEach((id, idx) => {
+      const box = document.getElementById(id);
+      box.value = '';
+      box.oninput = () => {
+        box.value = box.value.replace(/\D/g, '').slice(0, 1);
+        if (box.value && idx < ids.length - 1) document.getElementById(ids[idx + 1]).focus();
+      };
+      box.onkeydown = e => {
+        if (e.key === 'Backspace' && !box.value && idx > 0) document.getElementById(ids[idx - 1]).focus();
+      };
+    });
+    document.getElementById(ids[0]).focus();
+  }
+  function verify4mTimer(id, secs) {
+    clearInterval(verify4mTimers[id]);
+    const el = document.getElementById(id);
+    let s = secs;
+    el.textContent = `(${s}s)`;
+    verify4mTimers[id] = setInterval(() => {
+      s -= 1;
+      el.textContent = s > 0 ? `(${s}s)` : '';
+      if (s <= 0) clearInterval(verify4mTimers[id]);
+    }, 1000);
+  }
+  function verify4mStartCountdown(e) { e.preventDefault(); verify4mTimer('verify4mcountdown', 60); }
+  function verify4mStartECountdown(e) { e.preventDefault(); verify4mTimer('verify4mecountdown', 60); }
+  function verify4mProceedFromPhone() {
+    if (!verify4mPhonePrompted) {
+      verify4mPhonePrompted = true;
+      document.getElementById('verify4mOtpInputSection').style.display = 'block';
+      document.getElementById('verify4mBtnPhone').textContent = 'Verify OTP';
+      verify4mTimer('verify4mcountdown', 60);
+      verify4mInitOTP(['verify4motp0', 'verify4motp1', 'verify4motp2', 'verify4motp3', 'verify4motp4', 'verify4motp5']);
+      return;
+    }
+    const otp = [0, 1, 2, 3, 4, 5].map(i => document.getElementById('verify4motp' + i).value).join('');
+    if (otp.length < 6) { alert('Please enter the complete 6-digit OTP.'); return; }
+    verify4mGoStep(2);
+  }
+  function verify4mHandleEmail() {
+    const em = document.getElementById('verify4mEmailInput').value.trim();
+    const err = document.getElementById('verify4mEmailErr');
+    if (!verify4mEmailSent) {
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)) {
+        err.classList.add('show');
+        document.getElementById('verify4mEmailInput').classList.add('error');
+        return;
+      }
+      err.classList.remove('show');
+      document.getElementById('verify4mEmailInput').classList.remove('error');
+      document.getElementById('verify4mEmailInput').classList.add('valid');
+      document.getElementById('verify4mEmailOtpSection').style.display = 'block';
+      document.getElementById('verify4mBtnEmail').textContent = 'Verify Code';
+      verify4mEmailSent = true;
+      verify4mTimer('verify4mecountdown', 60);
+      verify4mInitOTP(['verify4meotp0', 'verify4meotp1', 'verify4meotp2', 'verify4meotp3', 'verify4meotp4', 'verify4meotp5']);
+    } else {
+      const otp = [0, 1, 2, 3, 4, 5].map(i => document.getElementById('verify4meotp' + i).value).join('');
+      if (otp.length < 6) { alert('Please enter the complete 6-digit code.'); return; }
+      verify4mGoStep(3);
+    }
+  }
+  function verify4mToggleChip(el) { el.classList.toggle('selected'); }
+  function verify4mHandleDOB() {
+    const d = document.getElementById('verify4mDobDay').value;
+    const m = document.getElementById('verify4mDobMonth').value;
+    const y = document.getElementById('verify4mDobYear').value;
+    const err = document.getElementById('verify4mDobErr');
+    if (!d || !m || !y) { err.textContent = 'Please fill in your complete date of birth.'; err.classList.add('show'); return; }
+    const dob = new Date(+y, +m - 1, +d);
+    const age = (Date.now() - dob) / (365.25 * 24 * 60 * 60 * 1000);
+    if (age < 18) { err.textContent = 'You must be at least 18 years old.'; err.classList.add('show'); return; }
+    err.classList.remove('show');
+    verify4mGoStep(5);
+  }
+
+  // Touch swipe-down to dismiss (mobile UX)
+  ['sheet1','sheet2'].forEach(sheetId => {
+    const sheet = document.getElementById(sheetId);
+    let startY = 0;
+    sheet.addEventListener('touchstart', e => { startY = e.touches[0].clientY; }, { passive: true });
+    sheet.addEventListener('touchend', e => {
+      const delta = e.changedTouches[0].clientY - startY;
+      if (delta > 80) closeModal(sheet.closest('.modal-overlay').id);
+    }, { passive: true });
+  });
+
+  window.addEventListener('load', () => {
+    for (let d = 1; d <= 31; d++) {
+      document.getElementById('verify4mDobDay').insertAdjacentHTML('beforeend', `<option>${String(d).padStart(2, '0')}</option>`);
+    }
+    for (let y = 2006; y >= 1940; y--) {
+      document.getElementById('verify4mDobYear').insertAdjacentHTML('beforeend', `<option>${y}</option>`);
+    }
+    verify4mRenderSteps();
+    verify4mUpdateProgress();
+    openModal('modal1');
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
