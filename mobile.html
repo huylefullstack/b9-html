@@ -482,20 +482,213 @@
   }
   .verify4m-field-err.show { display: block; }
 
-  .verify4m-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; }
-  .verify4m-chip {
-    padding: 9px 14px;
-    border-radius: 20px;
+  .verify4m-phone-screen,
+  .verify4m-email-screen {
+    display: none;
+    flex-direction: column;
+    flex: 1;
+    min-height: 0;
+  }
+  .verify4m-phone-screen.active,
+  .verify4m-email-screen.active { display: flex; }
+  .verify4m-phone-screen--method .verify4m-sub,
+  .verify4m-email-screen--intro .verify4m-sub { text-align: center; }
+  .verify4m-phone-display--accent { color: var(--gold); }
+  .verify4m-otp-boxes--center {
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 12px;
+  }
+  .verify4m-btn-resend {
+    flex: 1;
+    min-height: 42px;
+    padding: 10px 14px;
+    background: rgba(255,255,255,0.06);
     border: 1px solid var(--border-navy);
-    background: rgba(255,255,255,0.04);
     color: var(--text-muted);
-    font-size: 13.5px;
+    font-family: 'Barlow', sans-serif;
+    font-size: 13px;
     font-weight: 600;
+    border-radius: 10px;
     cursor: pointer;
   }
-  .verify4m-chip.selected { border-color: var(--gold); background: var(--gold-dim); color: var(--gold); }
-  .verify4m-date-row { display: flex; gap: 8px; }
-  .verify4m-date-row .verify4m-field-group { flex: 1; }
+  .verify4m-btn-resend:disabled { opacity: 0.55; cursor: not-allowed; }
+  .verify4m-link-back {
+    background: none;
+    border: none;
+    padding: 0;
+    font: inherit;
+    font-size: 12px;
+    color: var(--gold);
+    text-decoration: underline;
+    cursor: pointer;
+  }
+  .verify4m-email-otp-hint {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    margin: 0 0 14px;
+    padding: 0 4px;
+    font-size: 12px;
+    line-height: 1.45;
+    color: var(--text-muted);
+    text-align: left;
+  }
+  .verify4m-email-otp-hint__icon {
+    flex-shrink: 0;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 1.5px solid var(--text-muted);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 700;
+    font-style: italic;
+    font-family: Georgia, serif;
+  }
+  .verify4m-panel-actions--email-otp { width: 100%; }
+  .verify4m-panel-actions--email-otp .verify4m-btn-resend,
+  .verify4m-panel-actions--email-otp .verify4m-btn-next { min-height: 44px; }
+  .verify4m-email-screen--otp .verify4m-otp-box {
+    width: 48px;
+    background: transparent;
+    border: 1.5px solid rgba(232, 238, 255, 0.45);
+    border-radius: 8px;
+  }
+  .verify4m-game-pref-field { margin-bottom: 8px; max-width: 100%; }
+  .verify4m-dob-wrap {
+    position: relative;
+    margin-bottom: 6px;
+    width: 100%;
+    max-width: min(300px, 100%);
+  }
+  .verify4m-dob-field {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    min-height: 48px;
+    padding: 0 14px;
+    background: var(--navy-input);
+    border: 1.5px solid var(--border-navy);
+    border-radius: 10px;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .verify4m-dob-field--open {
+    border-color: var(--gold);
+    box-shadow: 0 0 0 3px rgba(245, 166, 35, 0.15);
+  }
+  .verify4m-dob-value { font-size: 15px; font-weight: 600; color: var(--text-on-dark); }
+  .verify4m-dob-value--placeholder { color: var(--text-muted); font-weight: 500; }
+  .verify4m-dob-edit {
+    flex-shrink: 0;
+    background: none;
+    border: none;
+    padding: 0;
+    font: inherit;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--gold);
+    text-decoration: underline;
+    cursor: pointer;
+  }
+  .verify4m-dob-picker {
+    --verify4m-dob-cell-size: 34px;
+    display: none;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: calc(100% + 8px);
+    z-index: 30;
+    padding: 12px;
+    background: var(--navy-card);
+    border: 1px solid var(--border-navy);
+    border-radius: 12px;
+    box-shadow: 0 12px 40px rgba(0,0,0,.45);
+  }
+  .verify4m-dob-picker.open { display: block; }
+  .verify4m-dob-picker-nav {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+  .verify4m-dob-nav-btn {
+    flex-shrink: 0;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--navy-input);
+    border: 1px solid var(--border-navy);
+    border-radius: 8px;
+    color: var(--text-on-dark);
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+  }
+  .verify4m-dob-picker-selects { flex: 1; display: flex; gap: 8px; min-width: 0; }
+  .verify4m-dob-picker-select {
+    flex: 1;
+    min-width: 0;
+    height: 36px;
+    padding: 0 8px;
+    border-radius: 8px;
+    border: 1px solid var(--border-navy);
+    background: var(--navy-input);
+    color: var(--text-on-dark);
+    font-family: 'Barlow', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    appearance: none;
+  }
+  .verify4m-dob-weekdays {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 2px;
+    margin-bottom: 6px;
+    text-align: center;
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--text-muted);
+    justify-items: center;
+  }
+  .verify4m-dob-weekdays > span { width: var(--verify4m-dob-cell-size); }
+  .verify4m-dob-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 4px 2px;
+    justify-items: center;
+  }
+  .verify4m-dob-cell--pad {
+    width: var(--verify4m-dob-cell-size);
+    height: var(--verify4m-dob-cell-size);
+  }
+  .verify4m-dob-day {
+    width: var(--verify4m-dob-cell-size);
+    height: var(--verify4m-dob-cell-size);
+    padding: 0;
+    border: none;
+    border-radius: 50%;
+    background: transparent;
+    color: var(--text-muted);
+    font-size: 13px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-sizing: border-box;
+  }
+  .verify4m-dob-day:hover { color: var(--text-on-dark); background: rgba(255,255,255,.06); }
+  .verify4m-dob-day.selected {
+    background: var(--gold);
+    color: #1A0D00;
+    font-weight: 800;
+  }
 
   .verify4m-actions {
     display: flex;
@@ -568,6 +761,8 @@
     line-height: 1.6;
     margin-bottom: 12px;
   }
+  .verify4m-success-msg:empty { display: none !important; margin: 0; }
+  .verify4m-success .verify4m-btn-next { max-width: 220px; width: 100%; flex: none; }
 </style>
 </head>
 <body>
@@ -610,63 +805,93 @@
       <div class="verify4m-scroll">
         <div class="verify4m-panel active" id="verify4m-panel-1">
           <div class="verify4m-progress-wrap"><div class="verify4m-progress-fill" id="verify4mProgress" style="width:25%"></div></div>
-          <div class="verify4m-title">Contact Number Verification</div>
-          <div class="verify4m-sub" style="text-align:center;margin-bottom:6px;">Please select your preferred method to receive the OTP which will send to:</div>
-          <div class="verify4m-phone-display">60***703757</div>
-          <div class="verify4m-field-group">
-            <div class="verify4m-otp-row">
-              <div class="verify4m-otp-choice selected" id="verify4mChoiceWA" onclick="verify4mSelectOTP('wa')">
-                <div class="verify4m-otp-icon wa">
-                  <svg viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347"/></svg>
-                </div>
-                <span class="verify4m-otp-label">WhatsApp</span>
-              </div>
-              <div class="verify4m-or">or</div>
-              <div class="verify4m-otp-choice" id="verify4mChoiceSMS" onclick="verify4mSelectOTP('sms')">
-                <div class="verify4m-otp-icon sms">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="#8A99C8" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
-                </div>
-                <span class="verify4m-otp-label">SMS</span>
-              </div>
-            </div>
-          </div>
-          <div id="verify4mOtpInputSection" style="display:none">
+          <div class="verify4m-phone-screen verify4m-phone-screen--method active" id="verify4mPhoneScreenMethod">
+            <div class="verify4m-title">Contact Number Verification</div>
+            <div class="verify4m-sub">Please select your preferred method to receive the OTP which will be sent to:</div>
+            <div class="verify4m-phone-display verify4m-phone-display--accent">60****703757</div>
             <div class="verify4m-field-group">
-              <label class="verify4m-label">Enter OTP Code</label>
-              <div class="verify4m-otp-boxes">
-                <input class="verify4m-otp-box" maxlength="1" id="verify4motp0" inputmode="numeric">
-                <input class="verify4m-otp-box" maxlength="1" id="verify4motp1" inputmode="numeric">
-                <input class="verify4m-otp-box" maxlength="1" id="verify4motp2" inputmode="numeric">
-                <input class="verify4m-otp-box" maxlength="1" id="verify4motp3" inputmode="numeric">
-                <input class="verify4m-otp-box" maxlength="1" id="verify4motp4" inputmode="numeric">
-                <input class="verify4m-otp-box" maxlength="1" id="verify4motp5" inputmode="numeric">
+              <div class="verify4m-otp-row">
+                <div class="verify4m-otp-choice selected" id="verify4mChoiceWA" onclick="verify4mSelectOTP('wa')">
+                  <div class="verify4m-otp-icon wa">
+                    <svg viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347"/></svg>
+                  </div>
+                  <span class="verify4m-otp-label">WhatsApp</span>
+                </div>
+                <div class="verify4m-or">or</div>
+                <div class="verify4m-otp-choice" id="verify4mChoiceSMS" onclick="verify4mSelectOTP('sms')">
+                  <div class="verify4m-otp-icon sms">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="#8A99C8" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+                  </div>
+                  <span class="verify4m-otp-label">SMS</span>
+                </div>
               </div>
-              <div class="verify4m-resend">Didn't receive? <a href="#" onclick="verify4mStartCountdown(event)">Resend OTP</a> <span class="verify4m-count" id="verify4mcountdown"></span></div>
             </div>
+            <div class="verify4m-actions">
+              <button type="button" class="verify4m-btn-back" onclick="closeModal('modal2')">Change Number</button>
+              <button type="button" class="verify4m-btn-next" onclick="verify4mProceedFromPhone()">Verify Now</button>
+            </div>
+            <div class="verify4m-help">Need help? Please contact <a href="#">Live Chat</a></div>
           </div>
-          <div class="verify4m-actions">
-            <button class="verify4m-btn-back" onclick="closeModal('modal2')">Change Number</button>
-            <button class="verify4m-btn-next" id="verify4mBtnPhone" onclick="verify4mProceedFromPhone()">Verify Now</button>
+          <div class="verify4m-phone-screen verify4m-phone-screen--otp" id="verify4mPhoneScreenOtp">
+            <div class="verify4m-title">Contact Number Verification</div>
+            <div class="verify4m-sub">A 6-digit OTP has been sent to:</div>
+            <div class="verify4m-phone-display verify4m-phone-display--accent">60****703757</div>
+            <div class="verify4m-field-group">
+              <div class="verify4m-otp-boxes verify4m-otp-boxes--center">
+                <input class="verify4m-otp-box" maxlength="1" id="verify4motp0" inputmode="numeric" autocomplete="one-time-code" aria-label="OTP 1">
+                <input class="verify4m-otp-box" maxlength="1" id="verify4motp1" inputmode="numeric" aria-label="OTP 2">
+                <input class="verify4m-otp-box" maxlength="1" id="verify4motp2" inputmode="numeric" aria-label="OTP 3">
+                <input class="verify4m-otp-box" maxlength="1" id="verify4motp3" inputmode="numeric" aria-label="OTP 4">
+                <input class="verify4m-otp-box" maxlength="1" id="verify4motp4" inputmode="numeric" aria-label="OTP 5">
+                <input class="verify4m-otp-box" maxlength="1" id="verify4motp5" inputmode="numeric" aria-label="OTP 6">
+              </div>
+            </div>
+            <div class="verify4m-actions">
+              <button type="button" class="verify4m-btn-resend" id="verify4mResendOtpBtn" onclick="verify4mPhoneResendOtp(event)">Resend OTP<span class="verify4m-count" id="verify4mcountdown"></span></button>
+              <button type="button" class="verify4m-btn-next" onclick="verify4mSubmitPhoneOtp()">Verify</button>
+            </div>
+            <p style="text-align:center;margin:0 0 8px;font-size:12px">
+              <button type="button" class="verify4m-link-back" onclick="verify4mBackToPhoneMethod()">Change verification method</button>
+            </p>
+            <div class="verify4m-help">Need help? Please contact <a href="#">Live Chat</a></div>
           </div>
-          <div class="verify4m-help">Need help? <a href="#">Live Chat</a></div>
         </div>
 
         <div class="verify4m-panel" id="verify4m-panel-2">
           <div class="verify4m-progress-wrap"><div class="verify4m-progress-fill" style="width:50%"></div></div>
-          <div class="verify4m-title">Email Verification</div>
-          <div class="verify4m-sub">Enter your email address. A verification link will be sent.</div>
-          <div class="verify4m-field-group">
-            <label class="verify4m-label">Email Address</label>
-            <div class="verify4m-field-wrap">
-              <svg class="verify4m-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-              <input class="verify4m-input has-icon" type="email" id="verify4mEmailInput" placeholder="you@example.com">
+          <div class="verify4m-email-screen verify4m-email-screen--intro active" id="verify4mEmailScreenIntro">
+            <div class="verify4m-title">Email Verification</div>
+            <div class="verify4m-sub">The OTP will send to:</div>
+            <div class="verify4m-phone-display verify4m-phone-display--accent" id="verify4mEmailMaskedDisplay"></div>
+            <div class="verify4m-actions">
+              <button type="button" class="verify4m-btn-back" onclick="verify4mEmailShowEdit()">Change Email</button>
+              <button type="button" class="verify4m-btn-next" onclick="verify4mEmailVerifyNow()">Verify Now</button>
             </div>
-            <div class="verify4m-field-err" id="verify4mEmailErr">Please enter a valid email address.</div>
+            <div class="verify4m-help">Need help? Please contact <a href="#">Live Chat</a></div>
           </div>
-          <div id="verify4mEmailOtpSection" style="display:none">
+          <div class="verify4m-email-screen verify4m-email-screen--input" id="verify4mEmailScreenEdit">
+            <div class="verify4m-title">Email Verification</div>
+            <div class="verify4m-sub">Enter your email address, then select Verify Now. We will send a 6-digit OTP to that address.</div>
             <div class="verify4m-field-group">
-              <label class="verify4m-label">Verification Code</label>
-              <div class="verify4m-otp-boxes">
+              <label class="verify4m-label">Email Address</label>
+              <div class="verify4m-field-wrap">
+                <svg class="verify4m-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                <input class="verify4m-input has-icon" type="email" id="verify4mEmailInput" placeholder="you@example.com" value="secretz26@gmail.com" autocomplete="email">
+              </div>
+              <div class="verify4m-field-err" id="verify4mEmailErr">Please enter a valid email address.</div>
+            </div>
+            <div class="verify4m-actions">
+              <button type="button" class="verify4m-btn-back" onclick="verify4mEmailCancelEdit()">Cancel</button>
+              <button type="button" class="verify4m-btn-next" onclick="verify4mEmailVerifyNow()">Verify Now</button>
+            </div>
+            <div class="verify4m-help">Need help? Please contact <a href="#">Live Chat</a></div>
+          </div>
+          <div class="verify4m-email-screen verify4m-email-screen--otp" id="verify4mEmailScreenOtp">
+            <div class="verify4m-title">Email Verification</div>
+            <div class="verify4m-sub">A 6-digit OTP had been sent to:</div>
+            <div class="verify4m-phone-display verify4m-phone-display--accent" id="verify4mEmailMaskedDisplayOtp"></div>
+            <div class="verify4m-field-group">
+              <div class="verify4m-otp-boxes verify4m-otp-boxes--center">
                 <input class="verify4m-otp-box" maxlength="1" id="verify4meotp0" inputmode="numeric">
                 <input class="verify4m-otp-box" maxlength="1" id="verify4meotp1" inputmode="numeric">
                 <input class="verify4m-otp-box" maxlength="1" id="verify4meotp2" inputmode="numeric">
@@ -674,80 +899,79 @@
                 <input class="verify4m-otp-box" maxlength="1" id="verify4meotp4" inputmode="numeric">
                 <input class="verify4m-otp-box" maxlength="1" id="verify4meotp5" inputmode="numeric">
               </div>
-              <div class="verify4m-resend">Didn't receive? <a href="#" onclick="verify4mStartECountdown(event)">Resend email</a> <span class="verify4m-count" id="verify4mecountdown"></span></div>
             </div>
+            <div class="verify4m-email-otp-hint" role="note">
+              <span class="verify4m-email-otp-hint__icon" aria-hidden="true">i</span>
+              <span>Please check your spam folder if you haven't received the OTP email.</span>
+            </div>
+            <div class="verify4m-actions verify4m-panel-actions--email-otp">
+              <button type="button" class="verify4m-btn-resend" id="verify4mResendEmailBtn" onclick="verify4mEmailResendOtp(event)">Resend OTP<span class="verify4m-count" id="verify4mecountdown"></span></button>
+              <button type="button" class="verify4m-btn-next" onclick="verify4mSubmitEmailOtp()">Verify</button>
+            </div>
+            <p style="text-align:center;margin:0 0 8px;font-size:12px">
+              <button type="button" class="verify4m-link-back" onclick="verify4mEmailOtpToEditForm()">Change email address</button>
+            </p>
+            <div class="verify4m-help">Need help? Please contact <a href="#">Live Chat</a></div>
           </div>
-          <div class="verify4m-actions">
-            <button class="verify4m-btn-back" onclick="verify4mGoStep(1)">Back</button>
-            <button class="verify4m-btn-next" id="verify4mBtnEmail" onclick="verify4mHandleEmail()">Send Code</button>
-          </div>
-          <div class="verify4m-help">Need help? <a href="#">Live Chat</a></div>
         </div>
 
         <div class="verify4m-panel" id="verify4m-panel-3">
           <div class="verify4m-progress-wrap"><div class="verify4m-progress-fill" style="width:75%"></div></div>
           <div class="verify4m-title">Game Preference</div>
-          <div class="verify4m-sub">Select your favourite game types (optional).</div>
-          <div class="verify4m-field-group">
-            <label class="verify4m-label">Favourite Game Types</label>
-            <div class="verify4m-chips">
-              <div class="verify4m-chip" onclick="verify4mToggleChip(this)">Slots</div>
-              <div class="verify4m-chip" onclick="verify4mToggleChip(this)">Live Casino</div>
-              <div class="verify4m-chip" onclick="verify4mToggleChip(this)">Sports Betting</div>
-              <div class="verify4m-chip" onclick="verify4mToggleChip(this)">Poker</div>
-              <div class="verify4m-chip" onclick="verify4mToggleChip(this)">Fish Shooting</div>
-              <div class="verify4m-chip" onclick="verify4mToggleChip(this)">Table Games</div>
-            </div>
-          </div>
-          <div class="verify4m-field-group">
-            <label class="verify4m-label">Preferred Language</label>
+          <div class="verify4m-field-group verify4m-game-pref-field">
             <div class="verify4m-field-wrap">
-              <select class="verify4m-select">
-                <option value="">Select language</option><option>English</option><option>Bahasa Malaysia</option><option>Chinese</option><option>Thai</option><option>Vietnamese</option>
+              <select class="verify4m-select" id="verify4mGamePreference">
+                <option value="">Please Select</option>
+                <option value="live-casino">Live Casino</option>
+                <option value="slot-games">Slot Games</option>
+                <option value="live-sports">Live Sports</option>
+                <option value="live-esports">Live E-sports</option>
               </select>
               <span class="verify4m-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></span>
             </div>
           </div>
           <div class="verify4m-actions">
-            <button class="verify4m-btn-back" onclick="verify4mGoStep(2)">Back</button>
-            <button class="verify4m-btn-next" onclick="verify4mGoStep(4)">Continue</button>
+            <button type="button" class="verify4m-btn-next" onclick="verify4mGoStep(4)">Next</button>
           </div>
-          <div class="verify4m-help">Need help? <a href="#">Live Chat</a></div>
+          <div class="verify4m-help">Need help? Please contact <a href="#">Live Chat</a></div>
         </div>
 
         <div class="verify4m-panel" id="verify4m-panel-4">
           <div class="verify4m-progress-wrap"><div class="verify4m-progress-fill" style="width:100%"></div></div>
           <div class="verify4m-title">Date of Birth</div>
-          <div class="verify4m-sub">You must be 18+ to use this platform.</div>
-          <div class="verify4m-date-row">
-            <div class="verify4m-field-group">
-              <label class="verify4m-label">Day</label>
-              <div class="verify4m-field-wrap"><select class="verify4m-select" id="verify4mDobDay"><option value="">DD</option></select></div>
+          <div class="verify4m-dob-wrap" id="verify4mDobWrap">
+            <div class="verify4m-dob-field" id="verify4mDobField">
+              <span class="verify4m-dob-value verify4m-dob-value--placeholder" id="verify4mDobDisplay">DD / MM / YYYY</span>
+              <button type="button" class="verify4m-dob-edit" id="verify4mDobEditBtn" aria-expanded="false" aria-controls="verify4mDobPicker">Edit</button>
             </div>
-            <div class="verify4m-field-group">
-              <label class="verify4m-label">Month</label>
-              <div class="verify4m-field-wrap">
-                <select class="verify4m-select" id="verify4mDobMonth"><option value="">MM</option><option>01</option><option>02</option><option>03</option><option>04</option><option>05</option><option>06</option><option>07</option><option>08</option><option>09</option><option>10</option><option>11</option><option>12</option></select>
+            <div class="verify4m-dob-picker" id="verify4mDobPicker" role="dialog" aria-label="Choose date of birth">
+              <div class="verify4m-dob-picker-nav">
+                <button type="button" class="verify4m-dob-nav-btn" id="verify4mDobPrevM" aria-label="Previous month">‹</button>
+                <div class="verify4m-dob-picker-selects">
+                  <select class="verify4m-dob-picker-select" id="verify4mDobPickMonth" aria-label="Month"></select>
+                  <select class="verify4m-dob-picker-select" id="verify4mDobPickYear" aria-label="Year"></select>
+                </div>
+                <button type="button" class="verify4m-dob-nav-btn" id="verify4mDobNextM" aria-label="Next month">›</button>
               </div>
-            </div>
-            <div class="verify4m-field-group">
-              <label class="verify4m-label">Year</label>
-              <div class="verify4m-field-wrap"><select class="verify4m-select" id="verify4mDobYear"><option value="">YYYY</option></select></div>
+              <div class="verify4m-dob-weekdays">
+                <span>Su</span><span>Mo</span><span>Tu</span><span>We</span><span>Th</span><span>Fr</span><span>Sa</span>
+              </div>
+              <div class="verify4m-dob-grid" id="verify4mDobGrid"></div>
             </div>
           </div>
           <div class="verify4m-field-err" id="verify4mDobErr">You must be at least 18 years old.</div>
           <div class="verify4m-actions">
-            <button class="verify4m-btn-back" onclick="verify4mGoStep(3)">Back</button>
-            <button class="verify4m-btn-next" onclick="verify4mHandleDOB()">Complete</button>
+            <button type="button" class="verify4m-btn-back" onclick="verify4mGoStep(3)">Back</button>
+            <button type="button" class="verify4m-btn-next" onclick="verify4mHandleDOB()">Next</button>
           </div>
-          <div class="verify4m-help">Need help? <a href="#">Live Chat</a></div>
+          <div class="verify4m-help">Need help? Please contact <a href="#">Live Chat</a></div>
         </div>
 
         <div class="verify4m-success" id="verify4m-success">
           <div class="verify4m-success-ring"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></div>
-          <div class="verify4m-success-title">Verification Complete!</div>
-          <div class="verify4m-success-msg">Your account is fully verified.<br>MYR 10 free credit has been added to your wallet.</div>
-          <button class="verify4m-btn-next" style="max-width:220px" onclick="closeModal('modal2')">Start Playing</button>
+          <div class="verify4m-success-title" id="verify4mSuccessTitle">Profile Has Been Updated!</div>
+          <div class="verify4m-success-msg" id="verify4mSuccessMsg"></div>
+          <button type="button" class="verify4m-btn-next" id="verify4mSuccessBtn" onclick="closeModal('modal2')">Finish</button>
         </div>
       </div>
     </div>
@@ -757,7 +981,7 @@
 <script>
   function openModal(id) {
     document.getElementById(id).classList.add('active');
-    if (id === 'modal2') verify4mReset();
+    if (id === 'modal2') verify4mResetFlow();
     document.body.style.overflow = 'hidden';
   }
   function closeModal(id) {
@@ -767,45 +991,281 @@
   function handleOverlayClick(e, id) {
     if (e.target === document.getElementById(id)) closeModal(id);
   }
+
   const VERIFY4M_STEPS = [
-    { label: 'Phone', icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.86 8.81 19.79 19.79 0 01.78 2.2 2 2 0 012.76.02h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 8.54a16 16 0 006.37 6.37l1.9-1.9a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>` },
-    { label: 'Email', icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>` },
-    { label: 'Game', icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>` },
-    { label: 'Birth', icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>` }
+    { label: 'Phone', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.86 8.81 19.79 19.79 0 01.78 2.2 2 2 0 012.76.02h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 8.54a16 16 0 006.37 6.37l1.9-1.9a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>' },
+    { label: 'Email', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>' },
+    { label: 'Game', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>' },
+    { label: 'Birth', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>' }
   ];
+
   let verify4mStep = 1;
-  let verify4mPhonePrompted = false;
-  let verify4mEmailSent = false;
-  const verify4mTimers = {};
+  let verify4mEmailOTPSent = false;
+  const verify4mOtpTimers = {};
+  let verify4mDobDate = null;
+  const VERIFY4M_DOB_MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 
   function verify4mRenderSteps() {
     const el = document.getElementById('verify4mStepbar');
+    if (!el) return;
     let html = '';
     VERIFY4M_STEPS.forEach((s, i) => {
       const n = i + 1;
-      const cls = n < verify4mStep ? 'done' : (n === verify4mStep ? 'active' : '');
-      html += `<div class="verify4m-step ${cls}" onclick="verify4mTryGoStep(${n})"><div class="verify4m-step-dot">${s.icon}</div><span class="verify4m-step-label">${s.label}</span></div>`;
-      if (i < VERIFY4M_STEPS.length - 1) html += `<div class="verify4m-connector ${n < verify4mStep ? 'done' : ''}"></div>`;
+      let cls = '';
+      if (verify4mStep > 4) cls = 'done';
+      else if (n < verify4mStep) cls = 'done';
+      else if (n === verify4mStep) cls = 'active';
+      html += '<div class="verify4m-step ' + cls + '" onclick="verify4mTryGoStep(' + n + ')"><div class="verify4m-step-dot">' + s.icon + '</div><span class="verify4m-step-label">' + s.label + '</span></div>';
+      if (i < VERIFY4M_STEPS.length - 1) {
+        const doneConn = verify4mStep > 4 || n < verify4mStep;
+        html += '<div class="verify4m-connector' + (doneConn ? ' done' : '') + '"></div>';
+      }
     });
     el.innerHTML = html;
   }
+
   function verify4mUpdateProgress() {
-    const pct = (verify4mStep / VERIFY4M_STEPS.length) * 100;
-    document.getElementById('verify4mProgress').style.width = pct + '%';
+    const step = Math.min(verify4mStep, 4);
+    const pct = (step / 4) * 100;
+    document.querySelectorAll('.verify4m-progress-fill').forEach(function (el) {
+      el.style.width = pct + '%';
+    });
   }
-  function verify4mGoStep(n) {
-    document.getElementById('verify4m-panel-' + verify4mStep)?.classList.remove('active');
-    document.getElementById('verify4m-success')?.classList.remove('active');
-    verify4mStep = n;
-    if (n > 4) {
-      document.getElementById('verify4m-success').classList.add('active');
-      document.getElementById('verify4mProgress').style.width = '100%';
-    } else {
-      document.getElementById('verify4m-panel-' + n).classList.add('active');
-      verify4mUpdateProgress();
+
+  function verify4mDobUpdateDisplay() {
+    const disp = document.getElementById('verify4mDobDisplay');
+    if (!disp) return;
+    if (!verify4mDobDate) {
+      disp.textContent = 'DD / MM / YYYY';
+      disp.classList.add('verify4m-dob-value--placeholder');
+      return;
     }
-    verify4mRenderSteps();
+    var y = verify4mDobDate.y, m = verify4mDobDate.m, d = verify4mDobDate.d;
+    disp.textContent = String(d).padStart(2, '0') + '/' + String(m).padStart(2, '0') + '/' + y;
+    disp.classList.remove('verify4m-dob-value--placeholder');
   }
+
+  function verify4mDobClosePicker() {
+    var pick = document.getElementById('verify4mDobPicker');
+    var field = document.getElementById('verify4mDobField');
+    var btn = document.getElementById('verify4mDobEditBtn');
+    if (pick) pick.classList.remove('open');
+    if (field) field.classList.remove('verify4m-dob-field--open');
+    if (btn) btn.setAttribute('aria-expanded', 'false');
+  }
+
+  function verify4mDobSyncViewFromState() {
+    var monthSel = document.getElementById('verify4mDobPickMonth');
+    var yearSel = document.getElementById('verify4mDobPickYear');
+    if (!monthSel || !yearSel || !yearSel.options.length) return;
+    var y, m;
+    if (verify4mDobDate) {
+      y = verify4mDobDate.y;
+      m = verify4mDobDate.m;
+    } else {
+      var now = new Date();
+      y = now.getFullYear() - 25;
+      m = now.getMonth() + 1;
+    }
+    var ymin = +yearSel.options[yearSel.options.length - 1].value;
+    var ymax = +yearSel.options[0].value;
+    y = Math.max(ymin, Math.min(ymax, y));
+    yearSel.value = String(y);
+    monthSel.value = String(m);
+  }
+
+  function verify4mDobShiftMonth(delta) {
+    var monthSel = document.getElementById('verify4mDobPickMonth');
+    var yearSel = document.getElementById('verify4mDobPickYear');
+    if (!monthSel || !yearSel) return;
+    var y = +yearSel.value;
+    var m = +monthSel.value;
+    m += delta;
+    if (m < 1) { m = 12; y -= 1; }
+    if (m > 12) { m = 1; y += 1; }
+    var ymin = +yearSel.options[yearSel.options.length - 1].value;
+    var ymax = +yearSel.options[0].value;
+    y = Math.max(ymin, Math.min(ymax, y));
+    yearSel.value = String(y);
+    monthSel.value = String(m);
+    verify4mDobRenderCalendar();
+  }
+
+  function verify4mDobRenderCalendar() {
+    var grid = document.getElementById('verify4mDobGrid');
+    var monthSel = document.getElementById('verify4mDobPickMonth');
+    var yearSel = document.getElementById('verify4mDobPickYear');
+    if (!grid || !monthSel || !yearSel) return;
+    var vy = +yearSel.value;
+    var vm = +monthSel.value;
+    var first = new Date(vy, vm - 1, 1);
+    var startPad = first.getDay();
+    var daysInMonth = new Date(vy, vm, 0).getDate();
+    grid.innerHTML = '';
+    var i, d, btn;
+    for (i = 0; i < startPad; i++) {
+      var cell = document.createElement('div');
+      cell.className = 'verify4m-dob-cell--pad';
+      grid.appendChild(cell);
+    }
+    for (d = 1; d <= daysInMonth; d++) {
+      btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'verify4m-dob-day';
+      btn.textContent = String(d);
+      if (verify4mDobDate && verify4mDobDate.y === vy && verify4mDobDate.m === vm && verify4mDobDate.d === d) {
+        btn.classList.add('selected');
+      }
+      (function (dayNum) {
+        btn.addEventListener('click', function () {
+          verify4mDobDate = { y: vy, m: vm, d: dayNum };
+          verify4mDobUpdateDisplay();
+          verify4mDobRenderCalendar();
+          verify4mDobClosePicker();
+        });
+      })(d);
+      grid.appendChild(btn);
+    }
+  }
+
+  function verify4mDobOpenPicker() {
+    verify4mDobSyncViewFromState();
+    verify4mDobRenderCalendar();
+    var pick = document.getElementById('verify4mDobPicker');
+    var field = document.getElementById('verify4mDobField');
+    var b = document.getElementById('verify4mDobEditBtn');
+    if (pick) pick.classList.add('open');
+    if (field) field.classList.add('verify4m-dob-field--open');
+    if (b) b.setAttribute('aria-expanded', 'true');
+  }
+
+  function verify4mDobTogglePicker() {
+    var pick = document.getElementById('verify4mDobPicker');
+    if (pick && pick.classList.contains('open')) verify4mDobClosePicker();
+    else verify4mDobOpenPicker();
+  }
+
+  function verify4mDobOnDocClick(e) {
+    var wrap = document.getElementById('verify4mDobWrap');
+    var pick = document.getElementById('verify4mDobPicker');
+    if (!pick || !pick.classList.contains('open')) return;
+    if (wrap && wrap.contains(e.target)) return;
+    verify4mDobClosePicker();
+  }
+
+  function verify4mInitDobPicker() {
+    var monthSel = document.getElementById('verify4mDobPickMonth');
+    var yearSel = document.getElementById('verify4mDobPickYear');
+    if (!monthSel || !yearSel) return;
+    monthSel.innerHTML = VERIFY4M_DOB_MONTHS.map(function (name, i) {
+      return '<option value="' + (i + 1) + '">' + name + '</option>';
+    }).join('');
+    var maxY = new Date().getFullYear() - 18;
+    var minY = 1940;
+    var opts = '';
+    for (var y = maxY; y >= minY; y--) opts += '<option value="' + y + '">' + y + '</option>';
+    yearSel.innerHTML = opts;
+    monthSel.onchange = verify4mDobRenderCalendar;
+    yearSel.onchange = verify4mDobRenderCalendar;
+    document.getElementById('verify4mDobPrevM').onclick = function () { verify4mDobShiftMonth(-1); };
+    document.getElementById('verify4mDobNextM').onclick = function () { verify4mDobShiftMonth(1); };
+    document.getElementById('verify4mDobEditBtn').onclick = function (ev) {
+      ev.stopPropagation();
+      verify4mDobTogglePicker();
+    };
+    document.addEventListener('click', verify4mDobOnDocClick);
+  }
+
+  function verify4mResetDob() {
+    verify4mDobDate = null;
+    verify4mDobClosePicker();
+    verify4mDobUpdateDisplay();
+    var err = document.getElementById('verify4mDobErr');
+    if (err) err.classList.remove('show');
+  }
+
+  function verify4mMaskEmail(email) {
+    email = (email || '').trim();
+    if (!email) return '—';
+    var at = email.indexOf('@');
+    if (at < 1) return email.slice(0, 2) + '*****';
+    var local = email.slice(0, at);
+    var domain = email.slice(at + 1);
+    var head = local.slice(0, 2);
+    var tail = '';
+    if (local.length <= 2) tail = '';
+    else if (local.length <= 4) tail = local.slice(-1);
+    else if (local.length <= 6) tail = local.slice(-2);
+    else tail = local.slice(-3);
+    return tail ? head + '*****' + tail + '@' + domain : head + '*****@' + domain;
+  }
+
+  function verify4mUpdateEmailMaskedDisplay() {
+    var inp = document.getElementById('verify4mEmailInput');
+    var out = document.getElementById('verify4mEmailMaskedDisplay');
+    if (!inp || !out) return;
+    out.textContent = verify4mMaskEmail(inp.value);
+  }
+
+  function verify4mResetPhoneScreens() {
+    var method = document.getElementById('verify4mPhoneScreenMethod');
+    var otp = document.getElementById('verify4mPhoneScreenOtp');
+    if (method) method.classList.add('active');
+    if (otp) otp.classList.remove('active');
+    var resendBtn = document.getElementById('verify4mResendOtpBtn');
+    if (resendBtn) {
+      resendBtn.disabled = false;
+      var cd = document.getElementById('verify4mcountdown');
+      if (cd) cd.textContent = '';
+    }
+    clearInterval(verify4mOtpTimers['verify4mcountdown']);
+    [0,1,2,3,4,5].forEach(function (i) {
+      var box = document.getElementById('verify4motp' + i);
+      if (box) box.value = '';
+    });
+  }
+
+  function verify4mResetEmailScreens() {
+    verify4mEmailOTPSent = false;
+    var intro = document.getElementById('verify4mEmailScreenIntro');
+    var edit = document.getElementById('verify4mEmailScreenEdit');
+    var otpSc = document.getElementById('verify4mEmailScreenOtp');
+    if (intro) intro.classList.add('active');
+    if (edit) edit.classList.remove('active');
+    if (otpSc) otpSc.classList.remove('active');
+    var resendBtn = document.getElementById('verify4mResendEmailBtn');
+    if (resendBtn) {
+      resendBtn.disabled = false;
+      var cd = document.getElementById('verify4mecountdown');
+      if (cd) cd.textContent = '';
+    }
+    clearInterval(verify4mOtpTimers['verify4mecountdown']);
+    [0,1,2,3,4,5].forEach(function (i) {
+      var box = document.getElementById('verify4meotp' + i);
+      if (box) box.value = '';
+    });
+    var err = document.getElementById('verify4mEmailErr');
+    if (err) err.classList.remove('show');
+    var einp = document.getElementById('verify4mEmailInput');
+    if (einp) einp.classList.remove('error');
+    verify4mUpdateEmailMaskedDisplay();
+  }
+
+  function verify4mResetFlow() {
+    verify4mStep = 1;
+    document.querySelectorAll('.verify4m-panel').forEach(function (p, idx) {
+      p.classList.toggle('active', idx === 0);
+    });
+    document.getElementById('verify4m-success').classList.remove('active');
+    verify4mResetPhoneScreens();
+    verify4mResetEmailScreens();
+    var gp = document.getElementById('verify4mGamePreference');
+    if (gp) gp.value = '';
+    verify4mResetDob();
+    verify4mRenderSteps();
+    verify4mUpdateProgress();
+  }
+
   function verify4mTryGoStep(n) {
     if (n < verify4mStep) {
       verify4mGoStep(n);
@@ -813,115 +1273,238 @@
     }
     if (n > verify4mStep && verify4mCanSkipCurrentStep()) verify4mGoStep(n);
   }
+
   function verify4mCanSkipCurrentStep() {
-    if (verify4mStep === 1) return !verify4mPhonePrompted;
+    if (verify4mStep === 1) {
+      return !document.getElementById('verify4mPhoneScreenOtp').classList.contains('active');
+    }
     if (verify4mStep === 2) {
-      const email = document.getElementById('verify4mEmailInput').value.trim();
-      const emailOtp = [0, 1, 2, 3, 4, 5].map(i => document.getElementById('verify4meotp' + i).value).join('');
-      return !email && emailOtp.length === 0 && !verify4mEmailSent;
+      if (document.getElementById('verify4mEmailScreenOtp').classList.contains('active')) return false;
+      return !verify4mEmailOTPSent;
     }
     if (verify4mStep === 3) {
-      const hasChip = Array.from(document.querySelectorAll('#verify4m-panel-3 .verify4m-chip')).some(el => el.classList.contains('selected'));
-      return !hasChip;
+      var pref = document.getElementById('verify4mGamePreference');
+      return !(pref && pref.value);
     }
-    if (verify4mStep === 4) {
-      const d = document.getElementById('verify4mDobDay').value;
-      const m = document.getElementById('verify4mDobMonth').value;
-      const y = document.getElementById('verify4mDobYear').value;
-      return !d && !m && !y;
-    }
+    if (verify4mStep === 4) return verify4mDobDate === null;
     return false;
   }
-  function verify4mReset() {
-    verify4mStep = 1;
-    verify4mPhonePrompted = false;
-    verify4mEmailSent = false;
-    document.querySelectorAll('.verify4m-panel').forEach((p, idx) => p.classList.toggle('active', idx === 0));
+
+  function verify4mGoStep(n) {
+    verify4mDobClosePicker();
+    document.getElementById('verify4m-panel-' + verify4mStep).classList.remove('active');
     document.getElementById('verify4m-success').classList.remove('active');
-    document.getElementById('verify4mOtpInputSection').style.display = 'none';
-    document.getElementById('verify4mBtnPhone').textContent = 'Verify Now';
-    document.getElementById('verify4mEmailOtpSection').style.display = 'none';
-    document.getElementById('verify4mBtnEmail').textContent = 'Send Code';
+    verify4mStep = n;
+    if (n > 4) {
+      verify4mShowFinalSuccess();
+      document.querySelectorAll('.verify4m-progress-fill').forEach(function (el) {
+        el.style.width = '100%';
+      });
+    } else {
+      document.getElementById('verify4m-panel-' + n).classList.add('active');
+      if (n === 1) verify4mResetPhoneScreens();
+      if (n === 2) verify4mResetEmailScreens();
+      verify4mUpdateProgress();
+    }
     verify4mRenderSteps();
-    verify4mUpdateProgress();
   }
+
+  function verify4mShowIntermediateSuccess(nextPanelStep, title, messageHtml) {
+    document.querySelectorAll('.verify4m-panel').forEach(function (el) { el.classList.remove('active'); });
+    document.getElementById('verify4m-success').classList.remove('active');
+    verify4mStep = nextPanelStep;
+    document.getElementById('verify4mSuccessTitle').textContent = title;
+    var msgEl = document.getElementById('verify4mSuccessMsg');
+    if (messageHtml) {
+      msgEl.innerHTML = messageHtml;
+      msgEl.style.display = '';
+    } else {
+      msgEl.innerHTML = '';
+      msgEl.style.display = 'none';
+    }
+    var btn = document.getElementById('verify4mSuccessBtn');
+    btn.textContent = 'OK';
+    btn.onclick = function () { verify4mGoStep(nextPanelStep); };
+    document.getElementById('verify4m-success').classList.add('active');
+    verify4mUpdateProgress();
+    verify4mRenderSteps();
+  }
+
+  function verify4mShowFinalSuccess() {
+    document.querySelectorAll('.verify4m-panel').forEach(function (el) { el.classList.remove('active'); });
+    document.getElementById('verify4mSuccessTitle').textContent = 'Profile Has Been Updated!';
+    var msgEl = document.getElementById('verify4mSuccessMsg');
+    msgEl.innerHTML = '';
+    msgEl.style.display = 'none';
+    var btn = document.getElementById('verify4mSuccessBtn');
+    btn.textContent = 'Finish';
+    btn.onclick = function () { closeModal('modal2'); };
+    document.getElementById('verify4m-success').classList.add('active');
+  }
+
   function verify4mSelectOTP(type) {
     document.getElementById('verify4mChoiceWA').classList.toggle('selected', type === 'wa');
     document.getElementById('verify4mChoiceSMS').classList.toggle('selected', type === 'sms');
   }
-  function verify4mInitOTP(ids) {
-    ids.forEach((id, idx) => {
-      const box = document.getElementById(id);
+
+  function verify4mInitOTPBoxes(ids) {
+    ids.forEach(function (id, idx) {
+      var box = document.getElementById(id);
       box.value = '';
-      box.oninput = () => {
+      box.oninput = function () {
         box.value = box.value.replace(/\D/g, '').slice(0, 1);
         if (box.value && idx < ids.length - 1) document.getElementById(ids[idx + 1]).focus();
       };
-      box.onkeydown = e => {
+      box.onkeydown = function (e) {
         if (e.key === 'Backspace' && !box.value && idx > 0) document.getElementById(ids[idx - 1]).focus();
       };
     });
     document.getElementById(ids[0]).focus();
   }
-  function verify4mTimer(id, secs) {
-    clearInterval(verify4mTimers[id]);
-    const el = document.getElementById(id);
-    let s = secs;
-    el.textContent = `(${s}s)`;
-    verify4mTimers[id] = setInterval(() => {
+
+  function verify4mStartCountdownTimer(elId, secs, resendBtn) {
+    clearInterval(verify4mOtpTimers[elId]);
+    var el = document.getElementById(elId);
+    if (!el) return;
+    var s = secs;
+    if (resendBtn) resendBtn.disabled = true;
+    el.textContent = ' (' + s + 's)';
+    verify4mOtpTimers[elId] = setInterval(function () {
       s -= 1;
-      el.textContent = s > 0 ? `(${s}s)` : '';
-      if (s <= 0) clearInterval(verify4mTimers[id]);
+      el.textContent = s > 0 ? ' (' + s + 's)' : '';
+      if (s <= 0) {
+        clearInterval(verify4mOtpTimers[elId]);
+        if (resendBtn) resendBtn.disabled = false;
+      }
     }, 1000);
   }
-  function verify4mStartCountdown(e) { e.preventDefault(); verify4mTimer('verify4mcountdown', 60); }
-  function verify4mStartECountdown(e) { e.preventDefault(); verify4mTimer('verify4mecountdown', 60); }
+
   function verify4mProceedFromPhone() {
-    if (!verify4mPhonePrompted) {
-      verify4mPhonePrompted = true;
-      document.getElementById('verify4mOtpInputSection').style.display = 'block';
-      document.getElementById('verify4mBtnPhone').textContent = 'Verify OTP';
-      verify4mTimer('verify4mcountdown', 60);
-      verify4mInitOTP(['verify4motp0', 'verify4motp1', 'verify4motp2', 'verify4motp3', 'verify4motp4', 'verify4motp5']);
+    document.getElementById('verify4mPhoneScreenMethod').classList.remove('active');
+    document.getElementById('verify4mPhoneScreenOtp').classList.add('active');
+    var resendBtn = document.getElementById('verify4mResendOtpBtn');
+    verify4mStartCountdownTimer('verify4mcountdown', 60, resendBtn);
+    verify4mInitOTPBoxes(['verify4motp0','verify4motp1','verify4motp2','verify4motp3','verify4motp4','verify4motp5']);
+    verify4mRenderSteps();
+  }
+
+  function verify4mBackToPhoneMethod() {
+    verify4mResetPhoneScreens();
+    verify4mRenderSteps();
+  }
+
+  function verify4mPhoneResendOtp(e) {
+    e.preventDefault();
+    var btn = document.getElementById('verify4mResendOtpBtn');
+    if (!btn || btn.disabled) return;
+    verify4mStartCountdownTimer('verify4mcountdown', 60, btn);
+  }
+
+  function verify4mSubmitPhoneOtp() {
+    var otp = [0,1,2,3,4,5].map(function (i) { return document.getElementById('verify4motp' + i).value; }).join('');
+    if (otp.length < 6) {
+      alert('Please enter the complete 6-digit OTP.');
       return;
     }
-    const otp = [0, 1, 2, 3, 4, 5].map(i => document.getElementById('verify4motp' + i).value).join('');
-    if (otp.length < 6) { alert('Please enter the complete 6-digit OTP.'); return; }
-    verify4mGoStep(2);
+    verify4mShowIntermediateSuccess(2, 'Phone Number Verified Successfully!', '');
   }
-  function verify4mHandleEmail() {
-    const em = document.getElementById('verify4mEmailInput').value.trim();
-    const err = document.getElementById('verify4mEmailErr');
-    if (!verify4mEmailSent) {
-      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)) {
-        err.classList.add('show');
-        document.getElementById('verify4mEmailInput').classList.add('error');
-        return;
+
+  function verify4mEmailShowEdit() {
+    document.getElementById('verify4mEmailScreenIntro').classList.remove('active');
+    document.getElementById('verify4mEmailScreenOtp').classList.remove('active');
+    document.getElementById('verify4mEmailScreenEdit').classList.add('active');
+    requestAnimationFrame(function () {
+      var inp = document.getElementById('verify4mEmailInput');
+      if (inp) inp.focus();
+    });
+  }
+
+  function verify4mEmailCancelEdit() {
+    document.getElementById('verify4mEmailErr').classList.remove('show');
+    document.getElementById('verify4mEmailInput').classList.remove('error');
+    document.getElementById('verify4mEmailScreenEdit').classList.remove('active');
+    document.getElementById('verify4mEmailScreenIntro').classList.add('active');
+  }
+
+  function verify4mEmailVerifyNow() {
+    var em = document.getElementById('verify4mEmailInput').value.trim();
+    var err = document.getElementById('verify4mEmailErr');
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)) {
+      if (!document.getElementById('verify4mEmailScreenEdit').classList.contains('active')) {
+        verify4mEmailShowEdit();
       }
-      err.classList.remove('show');
-      document.getElementById('verify4mEmailInput').classList.remove('error');
-      document.getElementById('verify4mEmailInput').classList.add('valid');
-      document.getElementById('verify4mEmailOtpSection').style.display = 'block';
-      document.getElementById('verify4mBtnEmail').textContent = 'Verify Code';
-      verify4mEmailSent = true;
-      verify4mTimer('verify4mecountdown', 60);
-      verify4mInitOTP(['verify4meotp0', 'verify4meotp1', 'verify4meotp2', 'verify4meotp3', 'verify4meotp4', 'verify4meotp5']);
-    } else {
-      const otp = [0, 1, 2, 3, 4, 5].map(i => document.getElementById('verify4meotp' + i).value).join('');
-      if (otp.length < 6) { alert('Please enter the complete 6-digit code.'); return; }
-      verify4mGoStep(3);
+      err.classList.add('show');
+      document.getElementById('verify4mEmailInput').classList.add('error');
+      return;
     }
+    err.classList.remove('show');
+    document.getElementById('verify4mEmailInput').classList.remove('error');
+    document.getElementById('verify4mEmailScreenIntro').classList.remove('active');
+    document.getElementById('verify4mEmailScreenEdit').classList.remove('active');
+    document.getElementById('verify4mEmailScreenOtp').classList.add('active');
+    verify4mEmailOTPSent = true;
+    verify4mUpdateEmailMaskedDisplay();
+    document.getElementById('verify4mEmailMaskedDisplayOtp').textContent =
+      document.getElementById('verify4mEmailMaskedDisplay').textContent;
+    var resendBtn = document.getElementById('verify4mResendEmailBtn');
+    verify4mStartCountdownTimer('verify4mecountdown', 60, resendBtn);
+    verify4mInitOTPBoxes(['verify4meotp0','verify4meotp1','verify4meotp2','verify4meotp3','verify4meotp4','verify4meotp5']);
+    verify4mRenderSteps();
   }
-  function verify4mToggleChip(el) { el.classList.toggle('selected'); }
+
+  function verify4mEmailOtpToEditForm() {
+    verify4mEmailOTPSent = false;
+    clearInterval(verify4mOtpTimers['verify4mecountdown']);
+    var resendBtn = document.getElementById('verify4mResendEmailBtn');
+    if (resendBtn) {
+      resendBtn.disabled = false;
+      document.getElementById('verify4mecountdown').textContent = '';
+    }
+    [0,1,2,3,4,5].forEach(function (i) {
+      var box = document.getElementById('verify4meotp' + i);
+      if (box) box.value = '';
+    });
+    document.getElementById('verify4mEmailScreenOtp').classList.remove('active');
+    document.getElementById('verify4mEmailScreenIntro').classList.remove('active');
+    document.getElementById('verify4mEmailScreenEdit').classList.add('active');
+    verify4mRenderSteps();
+    requestAnimationFrame(function () {
+      document.getElementById('verify4mEmailInput').focus();
+    });
+  }
+
+  function verify4mEmailResendOtp(e) {
+    e.preventDefault();
+    var btn = document.getElementById('verify4mResendEmailBtn');
+    if (!btn || btn.disabled) return;
+    verify4mStartCountdownTimer('verify4mecountdown', 60, btn);
+  }
+
+  function verify4mSubmitEmailOtp() {
+    var otp = [0,1,2,3,4,5].map(function (i) { return document.getElementById('verify4meotp' + i).value; }).join('');
+    if (otp.length < 6) {
+      alert('Please enter the complete 6-digit code.');
+      return;
+    }
+    verify4mShowIntermediateSuccess(3, 'Email Verified Successfully!', '');
+  }
+
   function verify4mHandleDOB() {
-    const d = document.getElementById('verify4mDobDay').value;
-    const m = document.getElementById('verify4mDobMonth').value;
-    const y = document.getElementById('verify4mDobYear').value;
-    const err = document.getElementById('verify4mDobErr');
-    if (!d || !m || !y) { err.textContent = 'Please fill in your complete date of birth.'; err.classList.add('show'); return; }
-    const dob = new Date(+y, +m - 1, +d);
-    const age = (Date.now() - dob) / (365.25 * 24 * 60 * 60 * 1000);
-    if (age < 18) { err.textContent = 'You must be at least 18 years old.'; err.classList.add('show'); return; }
+    var err = document.getElementById('verify4mDobErr');
+    verify4mDobClosePicker();
+    if (!verify4mDobDate) {
+      err.textContent = 'Please select your date of birth.';
+      err.classList.add('show');
+      return;
+    }
+    var y = verify4mDobDate.y, m = verify4mDobDate.m, d = verify4mDobDate.d;
+    var dob = new Date(y, m - 1, d);
+    var age = (Date.now() - dob) / (365.25 * 24 * 60 * 60 * 1000);
+    if (age < 18) {
+      err.textContent = 'You must be at least 18 years old.';
+      err.classList.add('show');
+      return;
+    }
     err.classList.remove('show');
     verify4mGoStep(5);
   }
@@ -937,13 +1520,10 @@
     }, { passive: true });
   });
 
-  window.addEventListener('load', () => {
-    for (let d = 1; d <= 31; d++) {
-      document.getElementById('verify4mDobDay').insertAdjacentHTML('beforeend', `<option>${String(d).padStart(2, '0')}</option>`);
-    }
-    for (let y = 2006; y >= 1940; y--) {
-      document.getElementById('verify4mDobYear').insertAdjacentHTML('beforeend', `<option>${y}</option>`);
-    }
+  window.addEventListener('load', function () {
+    verify4mInitDobPicker();
+    verify4mResetDob();
+    verify4mUpdateEmailMaskedDisplay();
     verify4mRenderSteps();
     verify4mUpdateProgress();
     openModal('modal1');
