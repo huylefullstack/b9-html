@@ -237,9 +237,11 @@
     -webkit-appearance: none;
     appearance: none;
     margin: 0;
-    display: grid;
-    place-items: center;
-    align-content: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    container-type: size;
+    container-name: fc-promo-cta;
     aspect-ratio: 272 / 112;
     min-height: 48px;
     padding: 0 10px;
@@ -261,6 +263,17 @@
       transform 0.12s,
       filter 0.2s,
       opacity 0.2s;
+  }
+
+  .modal-free-credit--promo .modal-free-credit-btn-label {
+    display: block;
+    line-height: 1;
+    transform: translateY(-11px);
+  }
+  @supports (transform: translateY(1cqh)) {
+    .modal-free-credit--promo .modal-free-credit-btn-label {
+      transform: translateY(calc(-13.5cqh));
+    }
   }
 
   .modal-free-credit--promo .btn-later {
@@ -859,8 +872,8 @@
       </h2>
       <p class="modal-free-credit-sub">Verify your contact number &amp; email to get free credit!</p>
       <div class="modal-actions">
-        <button type="button" class="btn-later" onclick="closeModal('modal1')">Later</button>
-        <button type="button" class="btn-verify-now" onclick="closeModal('modal1'); openModal('modal2')">Verify Now</button>
+        <button type="button" class="btn-later" onclick="closeModal('modal1')"><span class="modal-free-credit-btn-label">Later</span></button>
+        <button type="button" class="btn-verify-now" onclick="closeModal('modal1'); openModal('modal2')"><span class="modal-free-credit-btn-label">Verify Now</span></button>
       </div>
       <label class="checkbox-row">
         <input type="checkbox">
