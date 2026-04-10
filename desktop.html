@@ -275,12 +275,12 @@
       }
 
       .modal-free-credit--promo .modal-free-credit-sub {
-        font-size: 15px;
+        font-size: 20px;
         font-weight: 500;
         color: rgba(255, 255, 255, 0.96);
         line-height: 1.45;
         margin: 0 auto 22px;
-        max-width: 340px;
+        max-width: 300px;
       }
 
       .modal-free-credit--promo .modal-actions {
@@ -289,56 +289,61 @@
         margin-bottom: 18px;
       }
 
-      .modal-free-credit--promo .btn-later {
+      .modal-free-credit--promo .btn-later,
+      .modal-free-credit--promo .btn-verify-now {
         flex: 1;
-        padding: 14px 16px;
-        background: linear-gradient(180deg, #dbeafe 0%, #ffffff 100%);
-        border: 2px solid #0f2970;
-        color: #0f2970;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        aspect-ratio: 272 / 112;
+        min-height: 48px;
+        padding: 0 10px;
+        border: none;
+        border-radius: 0;
+        background-color: transparent;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: 100% 100%;
         font-family: "Barlow", sans-serif;
         font-size: 15px;
-        font-weight: 700;
-        border-radius: 999px;
         cursor: pointer;
-        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+        box-shadow: none;
         transition:
           transform 0.12s,
-          box-shadow 0.2s,
+          filter 0.2s,
           opacity 0.2s;
       }
+
+      .modal-free-credit--promo .btn-later {
+        background-image: url("images/later.png");
+        color: #0c2570;
+        font-weight: 700;
+        text-shadow: 0 1px 0 rgba(255, 255, 255, 0.35);
+      }
       .modal-free-credit--promo .btn-later:hover {
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.16);
+        filter: brightness(1.06);
         transform: translateY(-1px);
       }
       .modal-free-credit--promo .btn-later:active {
         transform: translateY(0) scale(0.98);
-        opacity: 0.94;
+        filter: brightness(0.96);
+        opacity: 0.95;
       }
 
       .modal-free-credit--promo .btn-verify-now {
-        flex: 1;
-        padding: 14px 16px;
-        background: linear-gradient(180deg, #ffe566 0%, #f5c02e 35%, #e89410 100%);
-        border: none;
-        color: #0a1736;
-        font-family: "Barlow", sans-serif;
-        font-size: 15px;
+        background-image: url("images/verify.png");
+        color: #1a0d00;
         font-weight: 800;
-        border-radius: 999px;
-        cursor: pointer;
-        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.22);
-        transition:
-          transform 0.12s,
-          box-shadow 0.2s,
-          opacity 0.2s;
+        text-shadow: 0 1px 0 rgba(255, 255, 255, 0.25);
       }
       .modal-free-credit--promo .btn-verify-now:hover {
-        box-shadow: 0 5px 16px rgba(0, 0, 0, 0.28);
+        filter: brightness(1.05);
         transform: translateY(-1px);
       }
       .modal-free-credit--promo .btn-verify-now:active {
         transform: translateY(0) scale(0.98);
-        opacity: 0.94;
+        filter: brightness(0.96);
+        opacity: 0.95;
       }
 
       .modal-free-credit--promo .checkbox-row {
