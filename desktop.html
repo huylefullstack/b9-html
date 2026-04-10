@@ -180,12 +180,9 @@
         color: var(--text-on-dark);
       }
 
-      /* ── MODAL 1: Free Credit — promo artboard layout ── */
+      /* ── MODAL 1: Free Credit — full-panel artboard via background ── */
       .modal-free-credit--promo.casino-modal {
-        width: min(420px, calc(100vw - 48px));
-        padding: 0;
-        overflow: hidden;
-        background: linear-gradient(
+        --fc-promo-bg: linear-gradient(
           180deg,
           #5ba3ff 0%,
           #2b6ee8 18%,
@@ -193,28 +190,49 @@
           #102a70 72%,
           #08153d 100%
         );
+        width: min(420px, calc(100vw - 48px));
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        min-height: min(480px, 85vh);
+        padding: 0;
+        overflow: hidden;
+        isolation: isolate;
+        background: var(--fc-promo-bg);
         border: 1px solid rgba(255, 255, 255, 0.14);
         box-shadow:
           0 28px 90px rgba(0, 0, 0, 0.55),
           0 0 0 1px rgba(255, 255, 255, 0.08);
       }
 
-      .modal-free-credit-hero {
-        position: relative;
-        width: 100%;
-        line-height: 0;
+      .modal-free-credit--promo.casino-modal::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: url("images/artboard.png") center center / cover no-repeat;
+        mix-blend-mode: multiply;
+        pointer-events: none;
+        z-index: 0;
       }
 
-      .modal-free-credit-artboard {
-        width: 100%;
-        height: auto;
-        display: block;
-        object-fit: cover;
-        object-position: center top;
-        max-height: min(280px, 38vh);
+      .modal-free-credit--promo.casino-modal::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          180deg,
+          rgba(8, 21, 61, 0.15) 0%,
+          transparent 28%,
+          transparent 42%,
+          rgba(8, 21, 61, 0.55) 78%,
+          rgba(8, 21, 61, 0.88) 100%
+        );
+        pointer-events: none;
+        z-index: 0;
       }
 
       .modal-close--promo {
+        z-index: 2;
         top: 12px;
         right: 12px;
         background: rgba(8, 21, 61, 0.55);
@@ -232,8 +250,11 @@
       }
 
       .modal-free-credit-body {
+        position: relative;
+        z-index: 1;
+        margin-top: auto;
         text-align: center;
-        padding: 8px 28px 24px;
+        padding: 16px 28px 24px;
       }
 
       .modal-free-credit--promo h2 {
@@ -1212,24 +1233,14 @@
       onclick="handleOverlayClick(event, 'modal1')"
     >
       <div class="casino-modal modal-free-credit modal-free-credit--promo">
-        <div class="modal-free-credit-hero">
-          <img
-            class="modal-free-credit-artboard"
-            src="images/artboard.png"
-            alt=""
-            width="750"
-            height="400"
-            decoding="async"
-          />
-          <button
-            type="button"
-            class="modal-close modal-close--promo"
-            onclick="closeModal('modal1')"
-            aria-label="Close"
-          >
-            &#x2715;
-          </button>
-        </div>
+        <button
+          type="button"
+          class="modal-close modal-close--promo"
+          onclick="closeModal('modal1')"
+          aria-label="Close"
+        >
+          &#x2715;
+        </button>
         <div class="modal-free-credit-body">
           <h2>MYR 10 FREE CREDIT</h2>
           <p class="modal-free-credit-sub">

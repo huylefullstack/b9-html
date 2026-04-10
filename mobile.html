@@ -135,37 +135,57 @@
   }
   .modal-close:active { background: rgba(255,255,255,0.18); }
 
-  /* ── MODAL 1: Free Credit (Mobile) — promo artboard layout ── */
+  /* ── MODAL 1: Free Credit (Mobile) — full-panel artboard via background ── */
   .modal-free-credit--promo.casino-modal {
+    --fc-promo-bg: linear-gradient(180deg, #5BA3FF 0%, #2B6EE8 18%, #1E4EB8 42%, #102A70 72%, #08153D 100%);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-height: min(420px, 78vh);
     padding: 0;
     overflow: hidden;
-    background: linear-gradient(180deg, #5BA3FF 0%, #2B6EE8 18%, #1E4EB8 42%, #102A70 72%, #08153D 100%);
+    isolation: isolate;
+    background: var(--fc-promo-bg);
     border: 1px solid rgba(255, 255, 255, 0.14);
     box-shadow: 0 -8px 40px rgba(0, 0, 0, 0.45);
   }
 
+  .modal-free-credit--promo.casino-modal::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: url("images/artboard.png") center center / cover no-repeat;
+    mix-blend-mode: multiply;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .modal-free-credit--promo.casino-modal::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      180deg,
+      rgba(8, 21, 61, 0.15) 0%,
+      transparent 28%,
+      transparent 42%,
+      rgba(8, 21, 61, 0.55) 78%,
+      rgba(8, 21, 61, 0.88) 100%
+    );
+    pointer-events: none;
+    z-index: 0;
+  }
+
   .modal-free-credit--promo .pull-handle {
+    position: relative;
+    z-index: 2;
     background: rgba(255, 255, 255, 0.35);
     margin-top: 10px;
     margin-bottom: 0;
   }
 
-  .modal-free-credit-hero {
-    position: relative;
-    width: 100%;
-    line-height: 0;
-  }
-
-  .modal-free-credit-artboard {
-    width: 100%;
-    height: auto;
-    display: block;
-    object-fit: cover;
-    object-position: center top;
-    max-height: min(260px, 46vh);
-  }
-
   .modal-close--promo {
+    z-index: 2;
     top: 12px;
     right: 12px;
     background: rgba(8, 21, 61, 0.55);
@@ -177,8 +197,11 @@
   .modal-close--promo:active { background: rgba(8, 21, 61, 0.75); }
 
   .modal-free-credit-body {
+    position: relative;
+    z-index: 1;
+    margin-top: auto;
     text-align: center;
-    padding: 4px 20px calc(16px + var(--safe-bottom));
+    padding: 12px 20px calc(16px + var(--safe-bottom));
   }
 
   .modal-free-credit--promo h2 {
@@ -808,10 +831,7 @@
 <div class="modal-overlay" id="modal1" onclick="handleOverlayClick(event,'modal1')">
   <div class="casino-modal modal-free-credit modal-free-credit--promo" id="sheet1">
     <div class="pull-handle"></div>
-    <div class="modal-free-credit-hero">
-      <img class="modal-free-credit-artboard" src="images/artboard.png" alt="" width="750" height="400" decoding="async">
-      <button type="button" class="modal-close modal-close--promo" onclick="closeModal('modal1')" aria-label="Close">&#x2715;</button>
-    </div>
+    <button type="button" class="modal-close modal-close--promo" onclick="closeModal('modal1')" aria-label="Close">&#x2715;</button>
     <div class="modal-free-credit-body">
       <h2>MYR 10 FREE CREDIT</h2>
       <p class="modal-free-credit-sub">Verify your contact number &amp; email to get free credit!</p>
